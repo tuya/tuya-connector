@@ -50,4 +50,17 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>GitHub</id>
+            <url>https://maven.pkg.github.com/tuya/maven-repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
