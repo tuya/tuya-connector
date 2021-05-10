@@ -22,5 +22,5 @@ jobs:
     - name: Maven Deploy
       run: mvn -B -e deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
       env:
-        MAVEN_USERNAME: ${{ secrets.MAVEN_USER_NAME }}
+        MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
