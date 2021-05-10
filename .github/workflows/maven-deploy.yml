@@ -16,7 +16,7 @@ jobs:
         java-version: '8'
         server-id: maven
         server-username: MAVEN_USERNAME
-        server-password: MAVEN_CENTRAL_TOKEN
+        server-password: MAVEN_PASSWORD
     - name: Maven Package
       run: mvn -B -U clean package --file pom.xml -s $GITHUB_WORKSPACE/.github/workflows/settings.xml -Dmaven.test.skip=true
     - name: Maven Deploy
