@@ -7,7 +7,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -16,13 +16,16 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <connector.version>1.0.0-SNAPSHOT</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <lombok.version>1.18.8</lombok.version>
         <logback.version>1.2.3</logback.version>
         <fastjson.version>1.2.73</fastjson.version>
+        <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+        <pulsar-client.version>2.5.0</pulsar-client.version>
     </properties>
 
     <dependencyManagement>
@@ -92,15 +95,45 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <distributionManagement>
         <repository>
-            <id>GitHub</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/tuya/maven-repo</url>
+            <id>maven</id>
+            <name>tuya maven release</name>
+            <url>https://maven-other.tuya.com/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>maven</id>
+            <name>tuya maven snapshot</name>
+            <url>https://maven-other.tuya.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>

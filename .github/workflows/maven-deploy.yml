@@ -1,0 +1,24 @@
+name: Maven Deploy
+on:
+  push:
+    branches:
+      - dev
+      - release
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Java Environment
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '8'
+        server-id: maven
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_CENTRAL_TOKEN
+    - name: Publish Maven
+      run: mvn deploy -Dmaven.test.skip=true
+      env:
+        MAVEN_USERNAME: ${{ secrets.MAVEN_USER_NAME }}
+        MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_PASSWORD }}
