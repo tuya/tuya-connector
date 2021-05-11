@@ -125,18 +125,28 @@
 
     <distributionManagement>
         <repository>
-            <id>tuya-maven</id>
+            <id>maven</id>
             <name>tuya maven release</name>
             <url>https://maven-other.tuya.com/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>tuya-maven</id>
+            <id>maven</id>
             <name>tuya maven snapshot</name>
             <url>https://maven-other.tuya.com/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
     <repositories>
+        <repository>
+            <id>apache-maven</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>tuya-maven</id>
             <url>https://maven-other.tuya.com/repository/maven-public/</url>

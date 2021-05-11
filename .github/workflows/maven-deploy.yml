@@ -8,19 +8,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Java Environment
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '8'
-        server-id: maven
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_PASSWORD
-    - name: Maven Package
-      run: mvn -B -U clean package --file pom.xml -s $GITHUB_WORKSPACE/.github/workflows/settings.xml -Dmaven.test.skip=true
-    - name: Maven Deploy
-      run: mvn -B -e deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
-      env:
-        MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+      - uses: actions/checkout@v2
+      - name: Set up Java Environment
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+          server-id: maven
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_CENTRAL_TOKEN
+      - name: Maven Repository Publish
+        run: mvn -e clean deploy -Dmaven.test.skip=true
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_PASSWORD }}
