@@ -19,8 +19,8 @@
 
 <!-- Specify the Maven repository URL -->
 <repository>
-    <id>tuya</id>
-    <url>https://maven-other.tuya.com</url>
+    <id>tuya-maven</id>
+    <url>https://maven-other.tuya.com/repository/maven-public/</url>
 </repository>
 ```
 
