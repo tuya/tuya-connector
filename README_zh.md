@@ -19,8 +19,8 @@
 
 <!-- 添加 maven 仓库地址 -->
 <repository>
-    <id>tuya</id>
-    <url>https://maven-other.tuya.com</url>
+    <id>tuya-maven</id>
+    <url>https://maven-other.tuya.com/repository/maven-public/</url>
 </repository>
 ```
 
