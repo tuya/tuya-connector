@@ -3,7 +3,7 @@
 [![License: Apache 2](https://img.shields.io/badge/license-Apache%202-green)](https://github.com/tuya/tuya-connector/blob/master/LICENSE 'License')
 ![Version: 1.0.0](https://img.shields.io/badge/version-1.0.0-blue)
 
-`tuya-spring-boot-starter` helps you efficiently create cloud development projects regarding the OpenAPI or message subscription capabilities. You can put all the focus on business logic without taking care of server-side programming nor relational databases.
+`tuya-connector` helps you efficiently create cloud development projects regarding the OpenAPI or message subscription capabilities. You can put all the focus on business logic without taking care of server-side programming nor relational databases.
 
 
 ## Quick start
