@@ -17,7 +17,7 @@
   <version>#{latest.version}</version>
 </dependency>
 
-<!-- 添加 maven 仓库地址 -->
+<!-- 添加maven仓库地址 -->
 <repository>
     <id>tuya-maven</id>
     <url>https://maven-other.tuya.com/repository/maven-public/</url>
