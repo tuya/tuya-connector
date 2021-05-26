@@ -6,6 +6,8 @@
 `tuya-connector` helps you efficiently create cloud development projects regarding the OpenAPI or message subscription capabilities. You can put all the focus on business logic without taking care of server-side programming nor relational databases.
 
 
+#### [demo vedio](https://www.youtube.com/watch?v=pEGg-n43UhI)
+
 ## Quick start
 ### Integrate Spring Boot
 #### Dependency
