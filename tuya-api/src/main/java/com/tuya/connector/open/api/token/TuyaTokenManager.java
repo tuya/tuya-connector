@@ -6,7 +6,9 @@ import com.tuya.connector.api.token.TokenManager;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -23,7 +25,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     private final static int TOKEN_GRANT_TYPE = 1;
     private final static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private final TokenConnector connector;
-    private TuyaToken cachedToken;
+    private final Map<String, TuyaToken> cachedTokenMap = new ConcurrentHashMap<>();
     private final Configuration configuration;
 
     public TuyaTokenManager(Configuration configuration) {
@@ -33,14 +35,15 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
 
     @Override
     public TuyaToken getCachedToken() {
-        if (Objects.isNull(cachedToken)) {
-            cachedToken = getToken();
+        String currentAk = configuration.getApiDataSource().getAk();
+        if (Objects.isNull(cachedTokenMap.get(currentAk))) {
+            cachedTokenMap.put(currentAk, getToken());
         }
-        return cachedToken;
+        return cachedTokenMap.get(currentAk);
     }
 
     public void setCachedToken(TuyaToken cachedToken) {
-        this.cachedToken = cachedToken;
+        cachedTokenMap.put(configuration.getApiDataSource().getAk(), cachedToken);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
         if (Objects.isNull(token)) {
             log.error("Get token required not null.");
         }
-        cachedToken = token;
+        setCachedToken(token);
         log.info("Get token success, token: {}", token);
         return token;
     }
@@ -63,7 +66,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
         if (Objects.isNull(refreshedToken)) {
             log.error("Refreshed token required not null.");
         }
-        cachedToken = refreshedToken;
+        cachedTokenMap.put(configuration.getApiDataSource().getAk(), refreshedToken);
         return refreshedToken;
     }
 

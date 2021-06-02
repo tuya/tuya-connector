@@ -16,10 +16,9 @@
     </modules>
 
     <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.version>1.0.0</connector.version>
+        <connector.version>1.0.1-SNAPSHOT</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <lombok.version>1.18.8</lombok.version>
         <logback.version>1.2.3</logback.version>
@@ -91,31 +90,6 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
                         </goals>
                     </execution>
                 </executions>
