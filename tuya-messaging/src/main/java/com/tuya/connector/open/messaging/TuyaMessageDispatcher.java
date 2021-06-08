@@ -92,7 +92,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
         EXECUTORS.execute(worker(consumer, sk));
     }
 
-    @Override
+    //@Override
     public boolean stop() {
         switchFlag = false;
         EXECUTORS.shutdownNow();
