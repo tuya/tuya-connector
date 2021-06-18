@@ -15,19 +15,16 @@
         <dependency>
             <groupId>com.tuya</groupId>
             <artifactId>connector-spring-boot-starter</artifactId>
-            <version>${connector.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.tuya</groupId>
             <artifactId>tuya-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.tuya</groupId>
             <artifactId>tuya-messaging</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
