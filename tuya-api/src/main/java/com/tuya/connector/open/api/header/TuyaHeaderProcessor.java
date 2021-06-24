@@ -6,6 +6,9 @@ import com.tuya.connector.api.config.Configuration;
 import com.tuya.connector.api.header.HeaderProcessor;
 import com.tuya.connector.open.api.token.TuyaToken;
 import com.tuya.connector.open.api.token.TuyaTokenManager;
+import com.tuya.connector.open.common.util.Sha256Util;
+import com.tuya.iot.framework.api.header.HeaderProcessor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Mac;
@@ -16,7 +19,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,7 +40,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     }
 
     @Override
-    public Map<String, String> value(URL url) {
+    public Map<String, String> value(String method, URL url, Map<String, List<String>> headers, String body) {
         ApiDataSource dataSource = configuration.getApiDataSource();
         TuyaTokenManager tokenManager = (TuyaTokenManager) dataSource.getTokenManager();
         String ak = dataSource.getAk();
@@ -51,12 +56,35 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         map.put("t", String.valueOf(t));
         map.put("sign_method", "HMAC-SHA256");
         map.put("lang", "zh");
-        map.put("sign", sign(withToken ? ak + accessToken + t : ak + t));
+        String str;
+        if(withToken){
+            str = ak+accessToken+t+stringToSign(method,url,map,body);
+        }else{
+            str = ak+t+stringToSign(method,url,map,body);
+        }
+        map.put("sign", sign(str));
         if (withToken) {
             map.put("access_token", accessToken);
         }
 
         return map;
+    }
+/**
+ *   ```java
+ *   String stringToSign=
+ *   HTTPMethod + "\n" +
+ *   Content-SHA256 + "\n" +
+ *   Headers + "\n" +
+ *   Url
+ *   ```
+ * */
+    @SneakyThrows
+    private String stringToSign(String method, URL url, Map<String, String> headers, String body) {
+        List<String> list = new ArrayList<>(4);
+        list.add(method.toUpperCase());
+        list.add(Sha256Util.encryption(body));
+        list.add(url.toString());
+        return String.join("\n",list);
     }
 
     @Override
