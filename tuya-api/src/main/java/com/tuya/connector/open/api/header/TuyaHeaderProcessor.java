@@ -32,6 +32,7 @@ import java.util.Map;
  */
 @Slf4j
 public class TuyaHeaderProcessor implements HeaderProcessor {
+    private static final String EMPTY_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
     private final Configuration configuration;
 
@@ -82,7 +83,11 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     private String stringToSign(HttpRequest request) {
         List<String> list = new ArrayList<>(4);
         list.add(request.getHttpMethod().toUpperCase());
-        list.add(Sha256Util.encryption(request.getBody()));
+        String bodyHash = EMPTY_HASH;
+        if(request.getBody()!=null && request.getBody().length>0){
+            bodyHash = Sha256Util.encryption(request.getBody());
+        }
+        list.add(bodyHash);
         list.add(request.getUrl().toString());
         return String.join("\n",list);
     }
