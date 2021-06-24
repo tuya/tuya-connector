@@ -18,9 +18,13 @@ import java.security.NoSuchAlgorithmException;
 public class Sha256Util {
 
     public static String encryption(String str) throws Exception{
+        return encryption(str.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String encryption(byte[] buf) throws Exception{
         MessageDigest messageDigest;
         messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(str.getBytes(StandardCharsets.UTF_8));
+        messageDigest.update(buf);
         return byte2Hex(messageDigest.digest());
     }
 

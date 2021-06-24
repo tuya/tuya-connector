@@ -4,10 +4,10 @@ package com.tuya.connector.open.api.header;
 import com.tuya.connector.api.config.ApiDataSource;
 import com.tuya.connector.api.config.Configuration;
 import com.tuya.connector.api.header.HeaderProcessor;
+import com.tuya.connector.api.model.HttpRequest;
 import com.tuya.connector.open.api.token.TuyaToken;
 import com.tuya.connector.open.api.token.TuyaTokenManager;
 import com.tuya.connector.open.common.util.Sha256Util;
-import com.tuya.iot.framework.api.header.HeaderProcessor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,12 +40,12 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     }
 
     @Override
-    public Map<String, String> value(String method, URL url, Map<String, List<String>> headers, String body) {
+    public Map<String, String> value(HttpRequest request) {
         ApiDataSource dataSource = configuration.getApiDataSource();
         TuyaTokenManager tokenManager = (TuyaTokenManager) dataSource.getTokenManager();
         String ak = dataSource.getAk();
         String accessToken = null;
-        boolean withToken = isWithToken(url);
+        boolean withToken = isWithToken(request.getUrl());
         if (withToken) {
             TuyaToken token = tokenManager.getCachedToken();
             accessToken = token.getAccessToken();
@@ -58,9 +58,9 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         map.put("lang", "zh");
         String str;
         if(withToken){
-            str = ak+accessToken+t+stringToSign(method,url,map,body);
+            str = ak+accessToken+t+stringToSign(request);
         }else{
-            str = ak+t+stringToSign(method,url,map,body);
+            str = ak+t+stringToSign(request);
         }
         map.put("sign", sign(str));
         if (withToken) {
@@ -79,11 +79,11 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
  *   ```
  * */
     @SneakyThrows
-    private String stringToSign(String method, URL url, Map<String, String> headers, String body) {
+    private String stringToSign(HttpRequest request) {
         List<String> list = new ArrayList<>(4);
-        list.add(method.toUpperCase());
-        list.add(Sha256Util.encryption(body));
-        list.add(url.toString());
+        list.add(request.getHttpMethod().toUpperCase());
+        list.add(Sha256Util.encryption(request.getBody()));
+        list.add(request.getUrl().toString());
         return String.join("\n",list);
     }
 
