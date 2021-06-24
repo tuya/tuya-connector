@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,8 @@ import java.util.Map;
 @Slf4j
 public class TuyaHeaderProcessor implements HeaderProcessor {
     private static final String EMPTY_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+    private static final String SING_HEADER_NAME = "Signature-Headers";
+    private static final String NONCE_HEADER_NAME = "nonce";
 
     private final Configuration configuration;
 
@@ -51,17 +54,22 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
             TuyaToken token = tokenManager.getCachedToken();
             accessToken = token.getAccessToken();
         }
+
+        Map<String, String> flattenHeaders = flattenHeaders(request.getHeaders());
         Map<String, String> map = new HashMap<>();
         long t = System.currentTimeMillis();
         map.put("client_id", ak);
         map.put("t", String.valueOf(t));
         map.put("sign_method", "HMAC-SHA256");
         map.put("lang", "zh");
+        map.put(SING_HEADER_NAME, flattenHeaders.get(SING_HEADER_NAME));
+        map.put(NONCE_HEADER_NAME, flattenHeaders.get(NONCE_HEADER_NAME));
+        String nonce = flattenHeaders.getOrDefault(NONCE_HEADER_NAME, "");
         String str;
-        if(withToken){
-            str = ak+accessToken+t+stringToSign(request);
-        }else{
-            str = ak+t+stringToSign(request);
+        if (withToken) {
+            str = ak + accessToken + t + nonce + stringToSign(request, flattenHeaders);
+        } else {
+            str = ak + t + nonce + stringToSign(request, flattenHeaders);
         }
         map.put("sign", sign(str));
         if (withToken) {
@@ -70,26 +78,46 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
 
         return map;
     }
-/**
- *   ```java
- *   String stringToSign=
- *   HTTPMethod + "\n" +
- *   Content-SHA256 + "\n" +
- *   Headers + "\n" +
- *   Url
- *   ```
- * */
+
+    private Map<String, String> flattenHeaders(Map<String, List<String>> headers) {
+        Map<String, String> newHeaders = new HashMap<>();
+        headers.forEach((name, values) -> {
+            if (values == null || values.isEmpty()) {
+                newHeaders.put(name, "");
+            } else {
+                newHeaders.put(name, values.get(0));
+            }
+        });
+        return newHeaders;
+    }
+
+    /**
+     * ```java
+     * String stringToSign=
+     * HTTPMethod + "\n" +
+     * Content-SHA256 + "\n" +
+     * Headers + "\n" +
+     * Url
+     * ```
+     */
     @SneakyThrows
-    private String stringToSign(HttpRequest request) {
-        List<String> list = new ArrayList<>(4);
-        list.add(request.getHttpMethod().toUpperCase());
+    private String stringToSign(HttpRequest request, Map<String, String> headers) {
+        List<String> lines = new ArrayList<>(16);
+        lines.add(request.getHttpMethod().toUpperCase());
         String bodyHash = EMPTY_HASH;
-        if(request.getBody()!=null && request.getBody().length>0){
+        if (request.getBody() != null && request.getBody().length > 0) {
             bodyHash = Sha256Util.encryption(request.getBody());
         }
-        list.add(bodyHash);
-        list.add(request.getUrl().toString());
-        return String.join("\n",list);
+        String signHeaders = headers.get(SING_HEADER_NAME);
+        if (signHeaders != null) {
+            String[] sighHeaderNames = signHeaders.split("\\s*:\\s*");
+            Arrays.stream(sighHeaderNames).map(it -> it.trim())
+                    .filter(it -> it.length() > 0)
+                    .forEach(it -> lines.add(it + ":" + headers.get(it)));
+        }
+        lines.add(bodyHash);
+        lines.add(request.getUrl().toString());
+        return String.join("\n", lines);
     }
 
     @Override
