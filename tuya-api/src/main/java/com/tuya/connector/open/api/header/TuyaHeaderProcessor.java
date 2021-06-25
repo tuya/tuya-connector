@@ -10,23 +10,17 @@ import com.tuya.connector.open.api.token.TuyaTokenManager;
 import com.tuya.connector.open.common.util.Sha256Util;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * <p> TODO
  *
  * @author 丘枫（余秋风 qiufeng.yu@tuya.com）
  * @since 2021/2/3 7:05 下午
@@ -57,14 +51,18 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
 
         Map<String, String> flattenHeaders = flattenHeaders(request.getHeaders());
         Map<String, String> map = new HashMap<>();
-        long t = System.currentTimeMillis();
+        String t = flattenHeaders.get("t");
+        if(!StringUtils.hasText(t)){
+            t = System.currentTimeMillis()+"";
+        }
         map.put("client_id", ak);
-        map.put("t", String.valueOf(t));
+        map.put("t", t);
         map.put("sign_method", "HMAC-SHA256");
         map.put("lang", "zh");
-        map.put(SING_HEADER_NAME, flattenHeaders.get(SING_HEADER_NAME));
-        map.put(NONCE_HEADER_NAME, flattenHeaders.get(NONCE_HEADER_NAME));
+        String signHeaderName = flattenHeaders.getOrDefault(SING_HEADER_NAME,"");
+        map.put(SING_HEADER_NAME, signHeaderName);
         String nonce = flattenHeaders.getOrDefault(NONCE_HEADER_NAME, "");
+        map.put(NONCE_HEADER_NAME, nonce);
         String str;
         if (withToken) {
             str = ak + accessToken + t + nonce + stringToSign(request, flattenHeaders);
@@ -75,7 +73,6 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         if (withToken) {
             map.put("access_token", accessToken);
         }
-
         return map;
     }
 
@@ -91,15 +88,6 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         return newHeaders;
     }
 
-    /**
-     * ```java
-     * String stringToSign=
-     * HTTPMethod + "\n" +
-     * Content-SHA256 + "\n" +
-     * Headers + "\n" +
-     * Url
-     * ```
-     */
     @SneakyThrows
     private String stringToSign(HttpRequest request, Map<String, String> headers) {
         List<String> lines = new ArrayList<>(16);
@@ -109,14 +97,18 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
             bodyHash = Sha256Util.encryption(request.getBody());
         }
         String signHeaders = headers.get(SING_HEADER_NAME);
+        String headerLine = "";
         if (signHeaders != null) {
             String[] sighHeaderNames = signHeaders.split("\\s*:\\s*");
-            Arrays.stream(sighHeaderNames).map(it -> it.trim())
+            headerLine = Arrays.stream(sighHeaderNames).map(it -> it.trim())
                     .filter(it -> it.length() > 0)
-                    .forEach(it -> lines.add(it + ":" + headers.get(it)));
+                    .map(it->it+":"+headers.get(it))
+                    .collect(Collectors.joining("\n"));
         }
         lines.add(bodyHash);
-        lines.add(request.getUrl().toString());
+        lines.add(headerLine);
+        URL url = request.getUrl();
+        lines.add(url.getFile());
         return String.join("\n", lines);
     }
 
@@ -124,20 +116,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     public String sign(String content) {
         ApiDataSource dataSource = configuration.getApiDataSource();
         String sk = dataSource.getSk();
-        Mac sha256HMAC = null;
-        try {
-            sha256HMAC = Mac.getInstance("HmacSHA256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        SecretKey secretKey = new SecretKeySpec(sk.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-        try {
-            sha256HMAC.init(secretKey);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }
-        byte[] digest = sha256HMAC.doFinal(content.getBytes(StandardCharsets.UTF_8));
-        return new HexBinaryAdapter().marshal(digest).toUpperCase();
+        return Sha256Util.sign(content,sk);
     }
 
     @Override
