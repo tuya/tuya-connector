@@ -28,6 +28,8 @@ import java.util.concurrent.Executors;
 @Slf4j
 @SuppressWarnings("rawtypes")
 public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationContextAware {
+    private boolean switchFlag = true;
+
     static ApplicationContext ctx;
 
     private final MessageDataSource messageDataSource;
@@ -90,6 +92,13 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
         EXECUTORS.execute(worker(consumer, sk));
     }
 
+    //@Override
+    public boolean stop() {
+        switchFlag = false;
+        EXECUTORS.shutdownNow();
+        return true;
+    }
+
     @Override
     public MessageDataSource getMsgDataSource() {
         return messageDataSource;
@@ -104,7 +113,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
     private Runnable worker(Consumer consumer, String sk) {
         Thread worker = new Thread(
             () -> {
-                while (true) {
+                while (switchFlag) {
                     Message message = null;
                     BaseTuyaMessage baseTuyaMessage = null;
                     try {

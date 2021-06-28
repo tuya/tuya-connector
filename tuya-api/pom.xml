@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tuya</groupId>
         <artifactId>tuya-connector</artifactId>
-        <version>${revision}</version>
+        <version>1.0.3</version>
     </parent>
 
     <artifactId>tuya-api</artifactId>
@@ -52,14 +52,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring-boot.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
             <optional>true</optional>
         </dependency>
     </dependencies>

@@ -3,11 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>${revision}</version>
+    <version>1.0.3</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -16,10 +15,9 @@
     </modules>
 
     <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.version>1.0.0-SNAPSHOT</connector.version>
+        <connector.version>1.0.2</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <lombok.version>1.18.8</lombok.version>
         <logback.version>1.2.3</logback.version>
@@ -40,6 +38,38 @@
                 <groupId>com.tuya</groupId>
                 <artifactId>connector-messaging</artifactId>
                 <version>${connector.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>connector-spring-boot-starter</artifactId>
+                <version>${connector.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -77,6 +107,11 @@
                 <optional>true</optional>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client</artifactId>
+                <version>${pulsar-client.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -91,31 +126,6 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
                         </goals>
                     </execution>
                 </executions>
