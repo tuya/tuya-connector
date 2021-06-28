@@ -5,6 +5,8 @@
 
 
 `tuya-connector`可以使得开发者在涂鸦云云对接（OpenAPI或者消息订阅）项目过程中，就如同本地开发一样，无需关注跟云端的连接和处理过程，从而帮助开发者更加聚焦在自身的业务逻辑上。
+#### [演示视频](https://www.bilibili.com/video/BV1E5411g7H1?share_source=copy_web)
+
 
 ## 快速开始
 ### SpringBoot集成
