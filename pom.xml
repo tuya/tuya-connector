@@ -6,7 +6,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
