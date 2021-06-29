@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -108,8 +109,29 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         lines.add(bodyHash);
         lines.add(headerLine);
         URL url = request.getUrl();
-        lines.add(url.getFile());
+        String paramSortedPath = getPathAndSortParam(url);
+        lines.add(paramSortedPath);
         return String.join("\n", lines);
+    }
+
+    private String getPathAndSortParam(URL url) {
+        String query = url.getQuery();
+        String path = url.getPath();
+        if(!StringUtils.hasText(query)){
+            return path;
+        }
+        Map<String,String> kvMap = new TreeMap<>();
+        String[] kvs = query.split("\\&");
+        for(String kv: kvs){
+            String[] kvArr = kv.split("=");
+            if(kvArr.length>1){
+                kvMap.put(kvArr[0],kvArr[1]);
+            }else{
+                kvMap.put(kvArr[0],"");
+            }
+        }
+        return path + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+it.getValue())
+                .collect(Collectors.joining("&"));
     }
 
     @Override
