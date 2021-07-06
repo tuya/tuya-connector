@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -114,6 +116,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         return String.join("\n", lines);
     }
 
+    @SneakyThrows
     private String getPathAndSortParam(URL url) {
         String query = url.getQuery();
         String path = url.getPath();
@@ -125,13 +128,24 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         for(String kv: kvs){
             String[] kvArr = kv.split("=");
             if(kvArr.length>1){
-                kvMap.put(kvArr[0],kvArr[1]);
+                kvMap.put(kvArr[0], decode(kvArr[1]));
             }else{
                 kvMap.put(kvArr[0],"");
             }
         }
-        return path + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+it.getValue())
+        return path + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+ encode(it.getValue()))
                 .collect(Collectors.joining("&"));
+    }
+
+    @SneakyThrows
+    private String decode(String data) {
+        return URLDecoder.decode(data,"utf-8");
+    }
+
+    @SneakyThrows
+    private String encode(String data){
+        return data;
+        //return URLEncoder.encode(data,"utf-8");
     }
 
     @Override
