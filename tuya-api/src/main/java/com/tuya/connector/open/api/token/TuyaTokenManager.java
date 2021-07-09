@@ -61,7 +61,21 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     @Override
     @SneakyThrows
     public TuyaToken refreshToken() {
-        Future<TuyaToken> future = EXECUTOR.submit(() -> connector.getToken(TOKEN_GRANT_TYPE));
+        String ak = configuration.getApiDataSource().getAk();
+        String sk = configuration.getApiDataSource().getSk();
+        Future<TuyaToken> future = EXECUTOR.submit(() -> {
+            try {
+                log.info("refresh token ak:{}", ak);
+                configuration.getApiDataSource().setAk(ak);
+                configuration.getApiDataSource().setSk(sk);
+                return connector.getToken(TOKEN_GRANT_TYPE);
+            } catch (Exception e) {
+                log.error("refresh token error", e);
+                return null;
+            } finally {
+                configuration.getApiDataSource().clear();
+            }
+        });
         TuyaToken refreshedToken = future.get();
         if (Objects.isNull(refreshedToken)) {
             log.error("Refreshed token required not null.");
