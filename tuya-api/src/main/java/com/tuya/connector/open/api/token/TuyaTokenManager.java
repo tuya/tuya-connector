@@ -63,9 +63,6 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     public TuyaToken refreshToken() {
         Future<TuyaToken> future = EXECUTOR.submit(() -> {
             try {
-                /*log.info("child refresh token ak:{}, sk:{}",
-                        configuration.getApiDataSource().getAk(),
-                        configuration.getApiDataSource().getSk());*/
                 return connector.getToken(TOKEN_GRANT_TYPE);
             } catch (Exception e) {
                 log.error("refresh token error", e);
