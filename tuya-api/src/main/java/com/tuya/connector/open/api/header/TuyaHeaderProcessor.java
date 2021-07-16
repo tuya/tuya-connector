@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -76,6 +75,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         if (withToken) {
             map.put("access_token", accessToken);
         }
+        log.info("headers==>{}",map);
         return map;
     }
 
