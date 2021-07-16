@@ -25,6 +25,7 @@ public class TokenInvalidErrorProcessor implements ErrorProcessor {
         if (context.getApiDataSource().isAutoRefreshToken()) {
             log.warn("token invalid error processor: refresh token and auto retry call request.");
             TuyaTokenManager tokenManager = (TuyaTokenManager) context.getApiDataSource().getTokenManager();
+            log.info("=== token invalid processor ak:{} ===", context.getApiDataSource().getAk());
             tokenManager.refreshToken();
             return invocation.proceed();
         }
