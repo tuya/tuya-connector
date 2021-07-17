@@ -66,7 +66,7 @@ public class SceneExecuteMessage extends BaseTuyaMessage {
         this.actions = actions;
     }
 
-    static class Item {
+    public static class Item {
         private String entityId;
         private Integer execStatus;
         private Long executeTime;
