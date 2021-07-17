@@ -37,7 +37,7 @@ public class DeviceSignalMessage extends BaseTuyaMessage {
         this.reportData = reportData;
     }
 
-    static class Item {
+    public static class Item {
         private Long memory;
         private Integer rssi;
         private Long t;
