@@ -62,9 +62,12 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     @Override
     @SneakyThrows
     public TuyaToken refreshToken() {
+        String ak = configuration.getApiDataSource().getAk();
+        String sk = configuration.getApiDataSource().getAk();
         Future<TuyaToken> future = EXECUTOR.submit(() -> {
             try {
-                log.info("sub thread refresh ak:{}", configuration.getApiDataSource().getAk());
+                configuration.getApiDataSource().setAk(ak);
+                configuration.getApiDataSource().setSk(sk);
                 return connector.getToken(TOKEN_GRANT_TYPE);
             } catch (Exception e) {
                 log.error("refresh token error", e);
