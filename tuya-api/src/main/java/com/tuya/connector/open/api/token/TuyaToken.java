@@ -21,6 +21,7 @@ public class TuyaToken implements Token {
     Long expire_time;
     String refresh_token;
     String uid;
+    Long expire_at;
 
     @Override
     public String getAccessToken() {

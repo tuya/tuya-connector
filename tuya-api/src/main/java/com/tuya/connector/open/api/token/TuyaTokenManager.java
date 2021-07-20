@@ -9,24 +9,28 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * <p> TODO
- *
- * @author 丘枫（余秋风 qiufeng.yu@tuya.com）
- * @since 2021/2/6 11:31 上午
+ * @author benguan.zhou
+ * @since 2021/7/19
  */
 @Slf4j
 public class TuyaTokenManager implements TokenManager<TuyaToken> {
 
     private final static int TOKEN_GRANT_TYPE = 1;
-    private final static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private final TokenConnector connector;
     private final Map<String, TuyaToken> cachedTokenMap = new ConcurrentHashMap<>();
     private final Configuration configuration;
+    private final Map<String, Lock> tokenRefreshLocks = new ConcurrentHashMap<>();
+    /** 1 seconds
+     * */
+    private final long WAIT_MILLIS = 1000;
+    /** 3 minutes
+     * */
+    private static final long REFRESH_BEFORE_EXPIRED_MILLIS = 1000*60*3;
 
     public TuyaTokenManager(Configuration configuration) {
         this.configuration = configuration;
@@ -35,58 +39,79 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
 
     @Override
     public TuyaToken getCachedToken() {
-        String currentAk = configuration.getApiDataSource().getAk();
-        if (Objects.isNull(cachedTokenMap.get(currentAk))) {
-            cachedTokenMap.put(currentAk, getToken());
-        }
-        log.info("=== ak:{} get token:{} ==", currentAk, cachedTokenMap.get(currentAk));
-        return cachedTokenMap.get(currentAk);
-    }
-
-    public void setCachedToken(TuyaToken cachedToken) {
-        cachedTokenMap.put(configuration.getApiDataSource().getAk(), cachedToken);
+        return refreshToken();
     }
 
     @Override
     @SneakyThrows
     public TuyaToken getToken() {
-        TuyaToken token = connector.getToken(TOKEN_GRANT_TYPE);
-        if (Objects.isNull(token)) {
-            log.error("Get token required not null.");
-        }
-        setCachedToken(token);
-        log.info("Get token success, token: {}", token);
-        return token;
+        return refreshToken();
     }
 
     @Override
     @SneakyThrows
     public TuyaToken refreshToken() {
+        refreshTokenIfNeed();
         String ak = configuration.getApiDataSource().getAk();
-        String sk = configuration.getApiDataSource().getAk();
-        Future<TuyaToken> future = EXECUTOR.submit(() -> {
-            try {
-                configuration.getApiDataSource().setAk(ak);
-                configuration.getApiDataSource().setSk(sk);
-                return connector.getToken(TOKEN_GRANT_TYPE);
-            } catch (Exception e) {
-                log.error("refresh token error", e);
-                return null;
-            } finally {
-                configuration.getApiDataSource().clear();
-            }
-        });
-        TuyaToken refreshedToken = future.get();
-        log.info("=== ak:{} refresh token:{} ===", configuration.getApiDataSource().getAk(), refreshedToken);
-        if (Objects.isNull(refreshedToken)) {
-            log.error("Refreshed token required not null.");
+        return cachedTokenMap.get(ak);
+    }
+
+    /**一个方法的结果，要么通过返回值体现，要么通过副作用体现*/
+    @SneakyThrows
+    private void refreshTokenIfNeed(){
+        String ak = configuration.getApiDataSource().getAk();
+        Objects.requireNonNull(ak,"ak can't be null");
+        TuyaToken cachedToken = cachedTokenMap.get(ak);
+        if(cachedToken!=null && !isTokenExpired(cachedToken)){
+            return;
         }
-        cachedTokenMap.put(configuration.getApiDataSource().getAk(), refreshedToken);
-        return refreshedToken;
+        //use a new lock for every ak. create if lock isn't exists.
+        Lock lock = tokenRefreshLocks.get(ak);
+        if(lock == null){
+            synchronized (ak){
+                lock = tokenRefreshLocks.get(ak);
+                if(lock == null){
+                    lock = new ReentrantLock();
+                    tokenRefreshLocks.put(ak,lock);
+                }
+            }
+        }
+
+        //get token from openapi, then put it into cache.
+        if(lock.tryLock(WAIT_MILLIS, TimeUnit.MILLISECONDS)){
+            try{
+                TuyaToken token = connector.getToken(TOKEN_GRANT_TYPE);
+                Objects.requireNonNull(token,"Refreshed token required not null.");
+                token.setExpire_at(System.currentTimeMillis()+token.getExpire_time());
+                cachedTokenMap.put(ak,token);
+                return;
+            }finally {
+                lock.unlock();
+            }
+        }else{
+            throw new RuntimeException("wait lock timeout!");
+        }
+    }
+
+    /**
+     * not actually expired
+     * */
+    private static boolean isTokenExpired(TuyaToken token){
+        return token.getExpire_at() - REFRESH_BEFORE_EXPIRED_MILLIS < System.currentTimeMillis();
     }
 
     @Override
     public Configuration getConfiguration() {
         return configuration;
+    }
+
+    /**
+     * warn: just for test, do not use this method!!!
+     * */
+    public void setCachedToken(TuyaToken token) {
+        String ak = configuration.getApiDataSource().getAk();
+        Objects.requireNonNull(token,"Refreshed token required not null.");
+        token.setExpire_at(System.currentTimeMillis()+token.getExpire_time());
+        cachedTokenMap.put(ak,token);
     }
 }

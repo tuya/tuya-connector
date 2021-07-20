@@ -5,7 +5,7 @@ import com.tuya.connector.api.error.ErrorInfo;
 import com.tuya.connector.api.error.ErrorProcessor;
 import com.tuya.connector.api.exceptions.ConnectorException;
 import com.tuya.connector.api.plugin.Invocation;
-import com.tuya.connector.open.api.token.TuyaTokenManager;
+import com.tuya.connector.api.token.TokenManager;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +24,7 @@ public class TokenInvalidErrorProcessor implements ErrorProcessor {
         log.warn("token error processor : {}", errorInfo);
         if (context.getApiDataSource().isAutoRefreshToken()) {
             log.warn("token invalid error processor: refresh token and auto retry call request.");
-            TuyaTokenManager tokenManager = (TuyaTokenManager) context.getApiDataSource().getTokenManager();
+            TokenManager tokenManager = context.getApiDataSource().getTokenManager();
             log.info("=== token invalid processor ak:{} ===", context.getApiDataSource().getAk());
             tokenManager.refreshToken();
             return invocation.proceed();
