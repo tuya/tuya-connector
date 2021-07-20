@@ -5,8 +5,8 @@ import com.tuya.connector.api.config.ApiDataSource;
 import com.tuya.connector.api.config.Configuration;
 import com.tuya.connector.api.header.HeaderProcessor;
 import com.tuya.connector.api.model.HttpRequest;
+import com.tuya.connector.api.token.TokenManager;
 import com.tuya.connector.open.api.token.TuyaToken;
-import com.tuya.connector.open.api.token.TuyaTokenManager;
 import com.tuya.connector.open.common.util.Sha256Util;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,12 +42,12 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     @Override
     public Map<String, String> value(HttpRequest request) {
         ApiDataSource dataSource = configuration.getApiDataSource();
-        TuyaTokenManager tokenManager = (TuyaTokenManager) dataSource.getTokenManager();
+        TokenManager tokenManager = dataSource.getTokenManager();
         String ak = dataSource.getAk();
         String accessToken = null;
         boolean withToken = isWithToken(request.getUrl());
         if (withToken) {
-            TuyaToken token = tokenManager.getCachedToken();
+            TuyaToken token = (TuyaToken) tokenManager.getCachedToken();
             accessToken = token.getAccessToken();
         }
 
