@@ -77,7 +77,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
             }
         });
         TuyaToken refreshedToken = future.get();
-        log.info("=== ak:{} refresh token:{} ===", configuration.getApiDataSource().getAk(), refreshedToken);
+        log.info("ak:{} refresh token:{}", configuration.getApiDataSource().getAk(), refreshedToken);
         if (Objects.isNull(refreshedToken)) {
             log.error("Refreshed token required not null.");
         }
