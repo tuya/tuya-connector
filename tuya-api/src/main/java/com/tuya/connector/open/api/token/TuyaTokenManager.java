@@ -30,7 +30,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     private final long WAIT_MILLIS = 1000;
     /** 3 minutes
      * */
-    private static final long REFRESH_BEFORE_EXPIRED_MILLIS = 1000*60*3;
+    private static final long REFRESH_BEFORE_EXPIRED_SECONDS = 60*3;
 
     public TuyaTokenManager(Configuration configuration) {
         this.configuration = configuration;
@@ -82,7 +82,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
             try{
                 TuyaToken token = connector.getToken(TOKEN_GRANT_TYPE);
                 Objects.requireNonNull(token,"Refreshed token required not null.");
-                token.setExpire_at(System.currentTimeMillis()+token.getExpire_time());
+                token.setExpire_at(System.currentTimeMillis()/1000+token.getExpire_time());
                 cachedTokenMap.put(ak,token);
                 return;
             }finally {
@@ -97,7 +97,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
      * not actually expired
      * */
     private static boolean isTokenExpired(TuyaToken token){
-        return token.getExpire_at() - REFRESH_BEFORE_EXPIRED_MILLIS < System.currentTimeMillis();
+        return token.getExpire_at() - REFRESH_BEFORE_EXPIRED_SECONDS < System.currentTimeMillis()/1000;
     }
 
     @Override
