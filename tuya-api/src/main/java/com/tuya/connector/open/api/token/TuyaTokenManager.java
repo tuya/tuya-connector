@@ -39,25 +39,25 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
 
     @Override
     public TuyaToken getCachedToken() {
-        return refreshToken();
-    }
-
-    @Override
-    @SneakyThrows
-    public TuyaToken getToken() {
-        return refreshToken();
-    }
-
-    @Override
-    @SneakyThrows
-    public TuyaToken refreshToken() {
         refreshTokenIfNeed();
         String ak = configuration.getApiDataSource().getAk();
+        Objects.requireNonNull(ak,"ak can't be null");
+        return cachedTokenMap.get(ak);
+    }
+
+    @Override
+    public TuyaToken getToken() {
+        return getCachedToken();
+    }
+
+    @Override
+    public TuyaToken refreshToken() {
+        String ak = configuration.getApiDataSource().getAk();
+        refreshTokenInLock(ak);
         return cachedTokenMap.get(ak);
     }
 
     /**一个方法的结果，要么通过返回值体现，要么通过副作用体现*/
-    @SneakyThrows
     private void refreshTokenIfNeed(){
         String ak = configuration.getApiDataSource().getAk();
         Objects.requireNonNull(ak,"ak can't be null");
@@ -65,6 +65,12 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
         if(cachedToken!=null && !isTokenExpired(cachedToken)){
             return;
         }
+        refreshTokenInLock(ak);
+    }
+
+    @SneakyThrows
+    private void refreshTokenInLock(String ak){
+        Objects.requireNonNull(ak,"ak can't be null");
         //use a new lock for every ak. create if lock isn't exists.
         Lock lock = tokenRefreshLocks.get(ak);
         if(lock == null){
