@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p> TODO
  *
@@ -26,13 +29,15 @@ import org.junit.jupiter.api.Test;
 public class ConnectorTest {
 
     static DeviceConnector deviceConnector;
-    String DEVICE_ID = "87707085bcddc23a5fa3";
+    static IndustryDeviceConnector industryDeviceConnector;
+    String DEVICE_ID = "vdevo162130852808036";
 
     @BeforeAll
     static void init() {
         Configuration config = new Configuration();
         ApiDataSource dataSource = ApiDataSource.DEFAULT_BUILDER.build();
         dataSource.setBaseUrl("https://openapi.tuyacn.com");
+
         dataSource.setAk(SecurityInfo.AK);
         dataSource.setSk(SecurityInfo.SK);
         dataSource.setLoggingStrategy(Logging.Strategy.BASIC);
@@ -50,6 +55,7 @@ public class ConnectorTest {
 
         ConnectorFactory connectorFactory = new DefaultConnectorFactory(config);
         deviceConnector = connectorFactory.loadConnector(DeviceConnector.class);
+        industryDeviceConnector = connectorFactory.loadConnector(IndustryDeviceConnector.class);
     }
 
     @Test
@@ -57,6 +63,24 @@ public class ConnectorTest {
         Device device = deviceConnector.getById(DEVICE_ID);
         log.error("DEVICE: {}", device);
         Assertions.assertEquals(device.getUuid(), DEVICE_ID);
+    }
+
+    @Test
+    void testSendCommand(){
+        String deviceId = "vdevo162130852808036";
+        CommandWrapper cmdWrapper = new CommandWrapper();
+        cmdWrapper.commands = new ArrayList<>();
+        cmdWrapper.commands.add(new Command());
+        cmdWrapper.commands.get(0).code = "basic_indicator";
+        cmdWrapper.commands.get(0).value = true;
+        industryDeviceConnector.sendCommands(deviceId,cmdWrapper);
+    }
+    static class Command{
+        String code;
+        Object value;
+    }
+    static class CommandWrapper{
+        List<Command> commands;
     }
 
 }
