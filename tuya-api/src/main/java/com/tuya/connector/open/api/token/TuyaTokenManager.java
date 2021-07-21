@@ -39,7 +39,6 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
         if (Objects.isNull(cachedTokenMap.get(currentAk))) {
             cachedTokenMap.put(currentAk, getToken());
         }
-        log.info("=== ak:{} get token:{} ==", currentAk, cachedTokenMap.get(currentAk));
         return cachedTokenMap.get(currentAk);
     }
 
@@ -77,7 +76,6 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
             }
         });
         TuyaToken refreshedToken = future.get();
-        log.info("ak:{} refresh token:{}", configuration.getApiDataSource().getAk(), refreshedToken);
         if (Objects.isNull(refreshedToken)) {
             log.error("Refreshed token required not null.");
         }
