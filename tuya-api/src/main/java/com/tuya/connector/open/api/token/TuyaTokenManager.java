@@ -63,7 +63,7 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     @SneakyThrows
     public TuyaToken refreshToken() {
         String ak = configuration.getApiDataSource().getAk();
-        String sk = configuration.getApiDataSource().getAk();
+        String sk = configuration.getApiDataSource().getSk();
         Future<TuyaToken> future = EXECUTOR.submit(() -> {
             try {
                 configuration.getApiDataSource().setAk(ak);
