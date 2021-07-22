@@ -18,9 +18,16 @@ import lombok.experimental.FieldDefaults;
 public class TuyaToken implements Token {
 
     String access_token;
+    /**
+     * time unit second
+     * */
     Long expire_time;
     String refresh_token;
     String uid;
+    /**
+     * time unit second
+     * */
+    Long expire_at;
 
     @Override
     public String getAccessToken() {
