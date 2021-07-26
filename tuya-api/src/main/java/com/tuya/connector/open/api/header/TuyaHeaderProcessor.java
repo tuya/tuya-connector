@@ -75,6 +75,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         if (withToken) {
             map.put("access_token", accessToken);
         }
+        log.info("headers==>{}",map);
         return map;
     }
 
