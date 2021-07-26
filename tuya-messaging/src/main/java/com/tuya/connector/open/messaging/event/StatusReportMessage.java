@@ -26,7 +26,7 @@ public class StatusReportMessage extends BaseTuyaMessage {
         }
     }
 
-    static class Item {
+    public static class Item {
         private String code;
         private Long t;
         private Object value;
