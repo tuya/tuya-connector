@@ -6,7 +6,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.9</version>
+    <version>1.0.13</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -15,9 +15,9 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <connector.version>1.0.4</connector.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <connector.version>1.0.6</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <lombok.version>1.18.8</lombok.version>
         <logback.version>1.2.3</logback.version>
@@ -112,12 +112,6 @@
                 <groupId>org.apache.pulsar</groupId>
                 <artifactId>pulsar-client</artifactId>
                 <version>${pulsar-client.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${annotation-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
