@@ -113,6 +113,12 @@
                 <artifactId>pulsar-client</artifactId>
                 <version>${pulsar-client.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${annotation-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
