@@ -37,7 +37,7 @@ public class DeviceDpCommandMessage extends BaseTuyaMessage {
         this.command = command;
     }
 
-    static class Item {
+    public static class Item {
         private Long dpId;
         private Boolean value;
 
