@@ -6,7 +6,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.16</version>
+    <version>1.0.17-SNAPSHOT</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -175,5 +175,5 @@
             </snapshots>
         </repository>
     </repositories>
-    <!-- tuya -->
+
 </project>
