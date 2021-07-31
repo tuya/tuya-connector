@@ -3,7 +3,6 @@ package com.tuya.connector.open.common.util;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -55,6 +54,20 @@ public class Sha256Util {
             e.printStackTrace();
         }
         byte[] digest = sha256HMAC.doFinal(content.getBytes(StandardCharsets.UTF_8));
-        return new HexBinaryAdapter().marshal(digest).toUpperCase();
+        return printHexBinary(digest).toUpperCase();
+    }
+
+    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+
+    /**
+     * 字节数组转16进制字符串
+     */
+    private static String printHexBinary(byte[] data) {
+        StringBuilder r = new StringBuilder(data.length * 2);
+        for (byte b : data) {
+            r.append(hexCode[(b >> 4) & 0xF]);
+            r.append(hexCode[(b & 0xF)]);
+        }
+        return r.toString();
     }
 }

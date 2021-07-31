@@ -5,7 +5,6 @@ import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.api.annotations.Query;
 
 /**
- * <p> TODO
  *
  * @author 丘枫（余秋风 qiufeng.yu@tuya.com）
  * @since 2021/2/4 5:53 下午
