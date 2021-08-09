@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tuya</groupId>
         <artifactId>tuya-connector</artifactId>
-        <version>1.0.19</version>
+        <version>1.0.20</version>
     </parent>
 
     <artifactId>tuya-messaging</artifactId>
@@ -70,6 +70,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
         </dependency>
     </dependencies>
 
