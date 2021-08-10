@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class TokenValidErrorProcessorTest {
     static DeviceConnector deviceConnector;
-    String DEVICE_ID = "87707085bcddc23a5fa3";
+    String DEVICE_ID = "*********";
 
     @BeforeAll
     static void init() {
@@ -49,8 +49,8 @@ public class TokenValidErrorProcessorTest {
         TuyaTokenManager tuyaTokenManager = new TuyaTokenManager(config);
         tuyaTokenManager.setCachedToken(
                 TuyaToken.builder()
-                        .access_token("f9ac7a2e421b23b7a5aedf1bb592fcb5")
-                        .refresh_token("7241fbae8614592ba71c454dac132a5d")
+                        .access_token("*********")
+                        .refresh_token("*********")
                         .build()
         );
         dataSource.setTokenManager(tuyaTokenManager);
