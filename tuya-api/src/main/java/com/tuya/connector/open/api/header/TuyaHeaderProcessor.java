@@ -46,7 +46,6 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         }
 
         Map<String, String> flattenHeaders = flattenHeaders(request.getHeaders());
-        log.info("flattenHeaders:{}", flattenHeaders);
         Map<String, String> map = new HashMap<>();
         String t = flattenHeaders.get("t");
         if (!StringUtils.hasText(t)) {
