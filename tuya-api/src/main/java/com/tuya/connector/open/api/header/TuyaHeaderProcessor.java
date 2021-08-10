@@ -27,7 +27,6 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     private static final String EMPTY_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
     private static final String SING_HEADER_NAME = "Signature-Headers";
     private static final String NONCE_HEADER_NAME = "nonce";
-    private static final String LANGUAGE_HEADER_KEY = "Accept-Language";
     private final Configuration configuration;
 
     public TuyaHeaderProcessor(Configuration configuration) {
@@ -56,11 +55,8 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         map.put("client_id", ak);
         map.put("t", t);
         map.put("sign_method", "HMAC-SHA256");
-        if (flattenHeaders.containsKey(LANGUAGE_HEADER_KEY)) {
-            map.put("lang", langConvertor(flattenHeaders.get(LANGUAGE_HEADER_KEY)));
-        } else {
-            map.put("lang", "en");
-        }
+        map.put("lang", langConvertor(configuration.getApiDataSource().getLang()));
+
         String signHeaderName = flattenHeaders.getOrDefault(SING_HEADER_NAME, "");
         map.put(SING_HEADER_NAME, signHeaderName);
         String nonce = flattenHeaders.getOrDefault(NONCE_HEADER_NAME, "");
@@ -99,15 +95,15 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
      */
     private String langConvertor(String originalLang) {
         if (StringUtils.isEmpty(originalLang)) {
-            return "en";
+            return "zh";
         }
         String result;
         switch (originalLang) {
-            case "zh-CN":
-                result = "zh";
+            case "en-US":
+                result = "en";
                 break;
             default:
-                result = "en";
+                result = "zh";
                 break;
         }
         return result;
