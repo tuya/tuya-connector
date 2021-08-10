@@ -14,12 +14,7 @@ import org.springframework.util.StringUtils;
 
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +27,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
     private static final String EMPTY_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
     private static final String SING_HEADER_NAME = "Signature-Headers";
     private static final String NONCE_HEADER_NAME = "nonce";
-
+    private static final String LANGUAGE_HEADER_KEY = "Accept-Language";
     private final Configuration configuration;
 
     public TuyaHeaderProcessor(Configuration configuration) {
@@ -52,16 +47,21 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         }
 
         Map<String, String> flattenHeaders = flattenHeaders(request.getHeaders());
+        log.info("flattenHeaders:{}", flattenHeaders);
         Map<String, String> map = new HashMap<>();
         String t = flattenHeaders.get("t");
-        if(!StringUtils.hasText(t)){
-            t = System.currentTimeMillis()+"";
+        if (!StringUtils.hasText(t)) {
+            t = System.currentTimeMillis() + "";
         }
         map.put("client_id", ak);
         map.put("t", t);
         map.put("sign_method", "HMAC-SHA256");
-        map.put("lang", "zh");
-        String signHeaderName = flattenHeaders.getOrDefault(SING_HEADER_NAME,"");
+        if (flattenHeaders.containsKey(LANGUAGE_HEADER_KEY)) {
+            map.put("lang", langConvertor(flattenHeaders.get(LANGUAGE_HEADER_KEY)));
+        } else {
+            map.put("lang", "en");
+        }
+        String signHeaderName = flattenHeaders.getOrDefault(SING_HEADER_NAME, "");
         map.put(SING_HEADER_NAME, signHeaderName);
         String nonce = flattenHeaders.getOrDefault(NONCE_HEADER_NAME, "");
         map.put(NONCE_HEADER_NAME, nonce);
@@ -89,6 +89,28 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
             }
         });
         return newHeaders;
+    }
+
+    /**
+     * 语言转换
+     *
+     * @param originalLang 原始语言
+     * @return
+     */
+    private String langConvertor(String originalLang) {
+        if (StringUtils.isEmpty(originalLang)) {
+            return "en";
+        }
+        String result;
+        switch (originalLang) {
+            case "zh-CN":
+                result = "zh";
+                break;
+            default:
+                result = "en";
+                break;
+        }
+        return result;
     }
 
     @SneakyThrows
