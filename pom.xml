@@ -6,7 +6,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.20</version>
+    <version>${revision}</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -15,6 +15,7 @@
     </modules>
 
     <properties>
+        <revision>1.0.21-SNAPSHOT</revision>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <connector.version>1.0.10</connector.version>
@@ -23,7 +24,7 @@
         <logback.version>1.2.3</logback.version>
         <fastjson.version>1.2.73</fastjson.version>
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
-        <pulsar-client.version>2.5.0</pulsar-client.version>
+        <pulsar-client.version>2.8.0</pulsar-client.version>
         <annotation-api.version>1.3.2</annotation-api.version>
     </properties>
 
@@ -50,19 +51,25 @@
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>tuya-api</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>tuya-messaging</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>tuya-common</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-spring-boot-starter</artifactId>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
