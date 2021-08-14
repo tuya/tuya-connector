@@ -10,7 +10,7 @@
 
 ## 快速开始
 ### SpringBoot集成
-#### 依赖当前最新版本:1.0.21-SNAPSHOT
+#### 依赖当前最新版本:1.0.21
 
 ```xml
 <dependency>
