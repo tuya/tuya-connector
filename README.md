@@ -10,7 +10,7 @@
 
 ## Quick start
 ### Integrate Spring Boot
-#### Dependency CurrentEdition：1.0.21-SNAPSHOT
+#### Dependency CurrentEdition：1.0.21
 
 ```xml
 <dependency>
