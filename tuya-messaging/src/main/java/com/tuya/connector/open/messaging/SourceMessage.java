@@ -15,10 +15,11 @@ public class SourceMessage implements Serializable {
     private String pv;
     private String sign;
     private Long t;
+    /** 智慧商业消息属性 */
     private String encryptType;
     private String encryptPayload;
     private String v;
-
+    /** 智慧商业消息属性 */
 
     public String getData() {
         return data;
