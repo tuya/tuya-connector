@@ -11,11 +11,13 @@ import java.io.Serializable;
 public class SourceMessage implements Serializable {
 
     private String data;
-    private String payload;
     private Integer protocol;
     private String pv;
     private String sign;
     private Long t;
+    private String encryptType;
+    private String encryptPayload;
+    private String v;
 
 
     public String getData() {
@@ -25,10 +27,6 @@ public class SourceMessage implements Serializable {
     public void setData(String data) {
         this.data = data;
     }
-
-    public String getPayload() { return payload; }
-
-    public void setPayload(String payload) { this.payload = payload; }
 
     public Integer getProtocol() {
         return protocol;
@@ -62,6 +60,29 @@ public class SourceMessage implements Serializable {
         this.t = t;
     }
 
+    public String getEncryptType() {
+        return encryptType;
+    }
+
+    public void setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+    }
+
+    public String getEncryptPayload() {
+        return encryptPayload;
+    }
+
+    public void setEncryptPayload(String encryptPayload) {
+        this.encryptPayload = encryptPayload;
+    }
+
+    public String getV() {
+        return v;
+    }
+
+    public void setV(String v) {
+        this.v = v;
+    }
 
     @Override
     public String toString() {
@@ -71,6 +92,9 @@ public class SourceMessage implements Serializable {
                 ", pv='" + pv + '\'' +
                 ", sign='" + sign + '\'' +
                 ", t=" + t +
+                ", encryptType='" + encryptType + '\'' +
+                ", encryptPayload='" + encryptPayload + '\'' +
+                ", v='" + v + '\'' +
                 '}';
     }
 }
