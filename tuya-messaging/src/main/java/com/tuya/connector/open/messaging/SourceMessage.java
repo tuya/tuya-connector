@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class SourceMessage implements Serializable {
 
     private String data;
+    private String payload;
     private Integer protocol;
     private String pv;
     private String sign;
@@ -24,6 +25,10 @@ public class SourceMessage implements Serializable {
     public void setData(String data) {
         this.data = data;
     }
+
+    public String getPayload() { return payload; }
+
+    public void setPayload(String payload) { this.payload = payload; }
 
     public Integer getProtocol() {
         return protocol;
@@ -61,11 +66,11 @@ public class SourceMessage implements Serializable {
     @Override
     public String toString() {
         return "MessageVO{" +
-            "data='" + data + '\'' +
-            ", protocol=" + protocol +
-            ", pv='" + pv + '\'' +
-            ", sign='" + sign + '\'' +
-            ", t=" + t +
-            '}';
+                "data='" + data + '\'' +
+                ", protocol=" + protocol +
+                ", pv='" + pv + '\'' +
+                ", sign='" + sign + '\'' +
+                ", t=" + t +
+                '}';
     }
 }
