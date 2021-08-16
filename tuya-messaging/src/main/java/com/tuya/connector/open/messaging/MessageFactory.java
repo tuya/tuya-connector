@@ -25,7 +25,13 @@ public class MessageFactory {
 
     @SneakyThrows
     public static BaseTuyaMessage extract(SourceMessage sourceMessage, String sk) {
-        String data = sourceMessage.getData();
+        String data;
+        if (sourceMessage.getEncryptPayload() != null) {
+            // problem left over by history
+            data = sourceMessage.getEncryptPayload();
+        }else {
+            data = sourceMessage.getData();
+        }
         String decryptData = AESBase64Utils.decrypt(data, sk.substring(8, 24));
         JSONObject messageBody = JSON.parseObject(decryptData);
         String type = messageBody.getString(MESSAGE_TYPE_KEY);
