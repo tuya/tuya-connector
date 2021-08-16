@@ -29,13 +29,13 @@ public class MessageFactory {
         if (sourceMessage.getEncryptPayload() != null) {
             // problem left over by history
             data = sourceMessage.getEncryptPayload();
-        }else {
+        } else {
             data = sourceMessage.getData();
         }
         String decryptData = AESBase64Utils.decrypt(data, sk.substring(8, 24));
         JSONObject messageBody = JSON.parseObject(decryptData);
         String type = messageBody.getString(MESSAGE_TYPE_KEY);
-        if (sourceMessage.getProtocol() == 4) {
+        if (sourceMessage.getProtocol() != null && sourceMessage.getProtocol() == 4) {
             // problem left over by history
             type = STATUS_REPORT.getType();
         }
