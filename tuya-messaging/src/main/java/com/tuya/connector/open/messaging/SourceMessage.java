@@ -15,6 +15,9 @@ public class SourceMessage implements Serializable {
     private String pv;
     private String sign;
     private Long t;
+    private String encryptType;
+    private String encryptPayload;
+    private String v;
 
 
     public String getData() {
@@ -57,15 +60,41 @@ public class SourceMessage implements Serializable {
         this.t = t;
     }
 
+    public String getEncryptType() {
+        return encryptType;
+    }
+
+    public void setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+    }
+
+    public String getEncryptPayload() {
+        return encryptPayload;
+    }
+
+    public void setEncryptPayload(String encryptPayload) {
+        this.encryptPayload = encryptPayload;
+    }
+
+    public String getV() {
+        return v;
+    }
+
+    public void setV(String v) {
+        this.v = v;
+    }
 
     @Override
     public String toString() {
         return "MessageVO{" +
-            "data='" + data + '\'' +
-            ", protocol=" + protocol +
-            ", pv='" + pv + '\'' +
-            ", sign='" + sign + '\'' +
-            ", t=" + t +
-            '}';
+                "data='" + data + '\'' +
+                ", protocol=" + protocol +
+                ", pv='" + pv + '\'' +
+                ", sign='" + sign + '\'' +
+                ", t=" + t +
+                ", encryptType='" + encryptType + '\'' +
+                ", encryptPayload='" + encryptPayload + '\'' +
+                ", v='" + v + '\'' +
+                '}';
     }
 }
