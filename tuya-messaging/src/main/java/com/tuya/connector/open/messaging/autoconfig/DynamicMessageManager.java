@@ -41,7 +41,7 @@ public class DynamicMessageManager implements EnvironmentAware, ApplicationConte
      */
     public static TuyaMessageDispatcher addMessageDispatcher(String ak, String sk, String url) {
         if (Objects.isNull(messageMap.get(ak))) {
-            log.warn("message dispatcher has exists, ak:{},sk:{},url:{}", ak, sk, url);
+            log.warn("message dispatcher has exists,url:{}",url);
         }
         if (StringUtils.isEmpty(url)) {
             String region = env.getProperty(EnvConstant.ENV_REGION);
@@ -58,11 +58,11 @@ public class DynamicMessageManager implements EnvironmentAware, ApplicationConte
     public static Boolean stopMessageDispatcher(String ak, String sk, String url) {
         TuyaMessageDispatcher tuyaMessageDispatcher = messageMap.get(ak);
         if (Objects.isNull(tuyaMessageDispatcher)) {
-            log.warn("message dispatcher not exists, ak:{},sk:{},url:{}", ak, sk, url);
+            log.warn("message dispatcher not exists,url:{}", url);
             return true;
         }
         boolean result = tuyaMessageDispatcher.stop();
-        log.info("stop message dispatcher {}, ak:{},sk:{},url:{}", result, ak, sk, url);
+        log.info("stop message dispatcher {},url:{}", result,  url);
         if (result) {
             messageMap.remove(ak);
         }

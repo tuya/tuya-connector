@@ -30,7 +30,7 @@ public class ConnectorTest {
 
     static DeviceConnector deviceConnector;
     static IndustryDeviceConnector industryDeviceConnector;
-    String DEVICE_ID = "vdevo162130852808036";
+    String DEVICE_ID = "*********";
 
     @BeforeAll
     static void init() {
@@ -67,7 +67,7 @@ public class ConnectorTest {
 
     @Test
     void testSendCommand(){
-        String deviceId = "vdevo162130852808036";
+        String deviceId = "*********";
         CommandWrapper cmdWrapper = new CommandWrapper();
         cmdWrapper.commands = new ArrayList<>();
         cmdWrapper.commands.add(new Command());
