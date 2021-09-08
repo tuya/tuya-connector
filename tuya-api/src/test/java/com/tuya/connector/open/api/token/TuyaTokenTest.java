@@ -56,7 +56,7 @@ public class TuyaTokenTest {
     void getTokenTest(int grantType) {
         TuyaToken tuyaToken = connector.getToken(grantType);
         log.info("TOKEN: {}", tuyaToken.toString());
-        assertTrue(tuyaToken.getExpire_time() > 0 && tuyaToken.getUid().equals("bay1606653099465k7rn"));
+        assertTrue(tuyaToken.getExpire_time() > 0 && tuyaToken.getUid().equals("*********"));
     }
 
 }
