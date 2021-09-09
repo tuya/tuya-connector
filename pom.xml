@@ -29,6 +29,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>connector-api</artifactId>
