@@ -4,29 +4,27 @@ import com.alibaba.fastjson.JSONObject;
 import com.tuya.connector.open.messaging.SourceMessage;
 
 /**
- * @description: 家庭创建
- * @author: jinyun.zhou@tuya.com
- * @create: 2021-03-24 22:41
- **/
-public class HomeCreateMessage extends BaseTuyaMessage {
+ * Description: TODO
+ *
+ * @author Chyern
+ * @since 2021/9/17
+ */
+public class UnknownMessage extends BaseTuyaMessage {
 
-    public static final String HOME_ID = "homeId";
-    public static final String HOME_NAME = "homeName";
-    public static final String UID = "uid";
-    public static final String TIME = "time";
+    private JSONObject messageBody;
 
     @Override
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
+        this.messageBody = messageBody;
     }
 
     @Override
     public EventType getEventType() {
-        return EventType.HOME_CREATE;
+        return EventType.UNKNOWN_MESSAGE;
     }
 
     @Override
-
     public String type() {
         return getEventType().getType();
     }

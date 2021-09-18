@@ -16,12 +16,18 @@ public class UpgradeStatusMessage extends BaseTuyaMessage {
     public static final String MODULE_TYPE = "moduleType";
 
 
-    public UpgradeStatusMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.UPGRADE_STATUS;
     }
 
     @Override
     public String type() {
-        return EventType.UPGRADE_STATUS.getType();
+        return getEventType().getType();
     }
 }

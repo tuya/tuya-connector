@@ -15,12 +15,18 @@ public class RoomNameUodateMessage extends BaseTuyaMessage {
     public static final String UID = "uid";
     public static final String TIME = "time";
 
-    public RoomNameUodateMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.ROOM_NAME_UPDATE;
     }
 
     @Override
     public String type() {
-        return EventType.ROOM_NAME_UPDATE.getType();
+        return getEventType().getType();
     }
 }

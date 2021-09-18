@@ -13,13 +13,19 @@ public class RoomDeleteMessage extends BaseTuyaMessage {
     public static final String HOME_ID = "homeId";
     public static final String TIME = "time";
 
-    public RoomDeleteMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.ROOM_DELETE;
     }
 
     @Override
 
     public String type() {
-        return EventType.ROOM_DELETE.getType();
+        return getEventType().getType();
     }
 }
