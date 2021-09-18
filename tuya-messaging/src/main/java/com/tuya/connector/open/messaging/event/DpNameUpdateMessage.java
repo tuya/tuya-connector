@@ -14,12 +14,18 @@ public class DpNameUpdateMessage extends BaseTuyaMessage {
     public static final String DP_ID = "dpId";
     public static final String NAME = "name";
 
-    public DpNameUpdateMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.DP_NAME_UPDATE;
     }
 
     @Override
     public String type() {
-        return EventType.DP_NAME_UPDATE.getType();
+        return getEventType().getType();
     }
 }

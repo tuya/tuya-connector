@@ -16,12 +16,18 @@ public class BindUserMessage extends BaseTuyaMessage {
     public static final String UUID = "uuid";
     public static final String TOKEN = "token";
 
-    public BindUserMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.BIND_USER;
     }
 
     @Override
     public String type() {
-        return EventType.BIND_USER.getType();
+        return getEventType().getType();
     }
 }

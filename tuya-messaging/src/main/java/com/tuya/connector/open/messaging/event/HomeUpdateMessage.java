@@ -17,12 +17,18 @@ public class HomeUpdateMessage extends BaseTuyaMessage {
     public static final String LON = "lon";
     public static final String LAT = "lat";
 
-    public HomeUpdateMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.HOME_UPDATE;
     }
 
     @Override
     public String type() {
-        return EventType.HOME_UPDATE.getType();
+        return getEventType().getType();
     }
 }

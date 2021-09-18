@@ -16,8 +16,9 @@ public class DeviceSignalMessage extends BaseTuyaMessage {
 
     private List<Item> reportData;
 
-    public DeviceSignalMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
         JSONArray statusArray = messageBody.getJSONArray("reportData");
         if (Objects.nonNull(statusArray)) {
             this.reportData = statusArray.toJavaList(Item.class);
@@ -25,8 +26,13 @@ public class DeviceSignalMessage extends BaseTuyaMessage {
     }
 
     @Override
+    public EventType getEventType() {
+        return EventType.DEVICE_SIGNAL;
+    }
+
+    @Override
     public String type() {
-        return EventType.DEVICE_SIGNAL.getType();
+        return getEventType().getType();
     }
 
     public List<Item> getReportData() {
