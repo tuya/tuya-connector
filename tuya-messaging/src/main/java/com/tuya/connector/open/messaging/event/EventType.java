@@ -1,8 +1,5 @@
 package com.tuya.connector.open.messaging.event;
 
-import com.alibaba.fastjson.JSONObject;
-import com.tuya.connector.open.messaging.SourceMessage;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,13 +9,8 @@ import java.util.stream.Collectors;
  * @author: jinyun.zhou@tuya.com
  **/
 public enum EventType {
-    /**
-     * 设备消息类型枚举
-     */
-    //4
     STATUS_REPORT(4, "statusReport", "数据上报"),
 
-    //20
     ONLINE(20, "online", "设备上线"),
     OFFLINE(20, "offline", "设备离线"),
     NAME_UPDATE(20, "nameUpdate", "设备改名称"),
@@ -30,22 +22,17 @@ public enum EventType {
     DEVICE_SIGNAL(20, "deviceSignal", "设备信号量"),
     DEVICE_DP_COMMAND(20, "deviceDpCommand", "设备控制"),
 
-    //21
     USER_REGISTER(21, "userRegister", "用户注册"),
     USER_UPDATE(21, "userUpdate", "用户更新"),
     USER_DELETE(21, "userDelete", "用户注销"),
 
-    //22
     AUTOMATION_EXTERNAL_ACTION(22, "automationExternalAction", "自动化外部动作"),
 
-    //25
     SCENE_EXECUTE(25, "sceneExecute", "场景执行"),
 
-    //34,
     ROOM_NAME_UPDATE(34, "roomNameUpdate", "房间更名"),
     ROOM_SORT(34, "roomSort", "房间排序"),
 
-    //35,
     HOME_CREATE(35, "homeCreate", "家庭创建"),
     HOME_UPDATE(35, "homeUpdate", "家庭更新"),
     HOME_DELETE(35, "homeDelete", "家庭删除"),
@@ -73,14 +60,12 @@ public enum EventType {
         this.description = description;
     }
 
-    public static EventType of(SourceMessage sourceMessage, JSONObject messageBody) {
-        String protocol = sourceMessage.getProtocol() == null ? "null" : sourceMessage.getProtocol().toString();
-        String bizCode = messageBody.getString("bizCode");
+    public static EventType of(Integer protocol, String bizCode) {
         //数据上报特有逻辑
-        if ("4".equals(protocol) && bizCode == null) {
+        if (protocol == 4 && bizCode == null) {
             bizCode = STATUS_REPORT.type;
         }
-        return CACHE.getOrDefault(protocol + bizCode,UNKNOWN_MESSAGE);
+        return CACHE.getOrDefault(protocol + bizCode, UNKNOWN_MESSAGE);
     }
 
     public Integer getProtocol() {
