@@ -11,6 +11,7 @@ import org.reflections.Reflections;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -49,14 +50,18 @@ public class MessageFactory {
         }
         String decryptData = AESBase64Utils.decrypt(data, sk.substring(8, 24));
         JSONObject messageBody = JSON.parseObject(decryptData);
-        return MessageFactory.generate(EventType.of(sourceMessage,messageBody), sourceMessage, messageBody);
+        String bizCode = null;
+        if (Objects.nonNull(messageBody) && messageBody.size() > 0) {
+            bizCode = messageBody.getString("bizCode");
+        }
+        return generate(EventType.of(sourceMessage.getProtocol(), bizCode), sourceMessage, messageBody);
     }
 
     @SneakyThrows
     public static BaseTuyaMessage generate(EventType eventType, SourceMessage sourceMessage, JSONObject messageBody) {
-        Class<? extends BaseTuyaMessage> orDefault = messageHandler.getOrDefault(eventType, UnknownMessage.class);
-        BaseTuyaMessage baseTuyaMessage = orDefault.newInstance();
-        baseTuyaMessage.defaultBuild(sourceMessage, messageBody);
-        return baseTuyaMessage;
+        Class<? extends BaseTuyaMessage> msgHandler = messageHandler.getOrDefault(eventType, UnknownMessage.class);
+        BaseTuyaMessage tuyaMessage = msgHandler.newInstance();
+        tuyaMessage.defaultBuild(sourceMessage, messageBody);
+        return tuyaMessage;
     }
 }
