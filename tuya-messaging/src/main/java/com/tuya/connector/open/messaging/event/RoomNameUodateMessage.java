@@ -25,8 +25,4 @@ public class RoomNameUodateMessage extends BaseTuyaMessage {
         return EventType.ROOM_NAME_UPDATE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

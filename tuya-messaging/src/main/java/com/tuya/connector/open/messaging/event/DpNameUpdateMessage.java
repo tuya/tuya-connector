@@ -23,9 +23,4 @@ public class DpNameUpdateMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.DP_NAME_UPDATE;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

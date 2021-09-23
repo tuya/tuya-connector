@@ -23,9 +23,4 @@ public class OnlineMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.ONLINE;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

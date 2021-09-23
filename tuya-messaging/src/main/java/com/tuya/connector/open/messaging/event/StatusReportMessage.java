@@ -62,11 +62,6 @@ public class StatusReportMessage extends BaseTuyaMessage {
         }
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
-
     public String getDataId() {
         return dataId;
     }

@@ -30,6 +30,11 @@ public abstract class BaseTuyaMessage implements MessageEvent, Serializable {
 
     public abstract EventType getEventType();
 
+    @Override
+    public String type() {
+        return getEventType().getType();
+    }
+
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         this.sourceMessage = sourceMessage;
         if (Objects.nonNull(messageBody) && messageBody.size() > 0) {

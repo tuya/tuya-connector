@@ -26,8 +26,4 @@ public class UpgradeStatusMessage extends BaseTuyaMessage {
         return EventType.UPGRADE_STATUS;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

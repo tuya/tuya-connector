@@ -24,8 +24,4 @@ public class UserRegisterMessage extends BaseTuyaMessage {
         return EventType.USER_REGISTER;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

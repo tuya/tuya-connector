@@ -24,9 +24,4 @@ public class RoomCreateMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.ROOM_CREATE;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

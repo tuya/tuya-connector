@@ -30,11 +30,6 @@ public class DeviceSignalMessage extends BaseTuyaMessage {
         return EventType.DEVICE_SIGNAL;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
-
     public List<Item> getReportData() {
         return reportData;
     }

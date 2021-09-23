@@ -23,9 +23,4 @@ public class NameUpdateMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.NAME_UPDATE;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

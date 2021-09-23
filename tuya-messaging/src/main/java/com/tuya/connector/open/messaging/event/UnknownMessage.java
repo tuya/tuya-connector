@@ -24,8 +24,4 @@ public class UnknownMessage extends BaseTuyaMessage {
         return EventType.UNKNOWN_MESSAGE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }
