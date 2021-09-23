@@ -4,23 +4,24 @@ import com.alibaba.fastjson.JSONObject;
 import com.tuya.connector.open.messaging.SourceMessage;
 
 /**
- * @description: 修改设备功能点名称
- * @author: jinyun.zhou@tuya.com
- * @create: 2021-03-24 21:46
- **/
-public class DpNameUpdateMessage extends BaseTuyaMessage {
+ * Description: TODO
+ *
+ * @author Chyern
+ * @since 2021/9/17
+ */
+public class UnknownMessage extends BaseTuyaMessage {
 
-    public static final String DEV_ID = "devId";
-    public static final String DP_ID = "dpId";
-    public static final String NAME = "name";
+    private JSONObject messageBody;
 
     @Override
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
+        this.messageBody = messageBody;
     }
 
     @Override
     public EventType getEventType() {
-        return EventType.DP_NAME_UPDATE;
+        return EventType.UNKNOWN_MESSAGE;
     }
+
 }

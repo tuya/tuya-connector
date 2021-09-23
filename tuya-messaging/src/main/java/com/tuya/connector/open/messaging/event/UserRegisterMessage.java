@@ -14,12 +14,14 @@ public class UserRegisterMessage extends BaseTuyaMessage {
     public static final String SCHEMA = "schema";
     public static final String TIME = "time";
 
-    public UserRegisterMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.USER_REGISTER.getType();
+    public EventType getEventType() {
+        return EventType.USER_REGISTER;
     }
+
 }

@@ -67,6 +67,11 @@ public class MessageTest {
             log.info("### statusReport event happened, event: {}", event);
         }
 
+        @EventListener
+        public void unknownMessage(UnknownMessage event) {
+            log.info("### unknown event happened, event: {}", event);
+        }
+
         @Bean
         public TuyaMessageDispatcher tuyaMessageDispatcher(MessageDataSource messageDataSource) {
             return new TuyaMessageDispatcher(messageDataSource);

@@ -26,8 +26,9 @@ public class SceneExecuteMessage extends BaseTuyaMessage {
     public static String ID = "id";
     private List<Item> actions;
 
-    public SceneExecuteMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
         this.gid = messageBody.getLong("gid");
         this.uid = messageBody.getString("uid");
 
@@ -38,9 +39,10 @@ public class SceneExecuteMessage extends BaseTuyaMessage {
     }
 
     @Override
-    public String type() {
-        return EventType.SCENE_EXECUTE.getType();
+    public EventType getEventType() {
+        return EventType.SCENE_EXECUTE;
     }
+
 
     public List<Item> getActions() {
         return actions;

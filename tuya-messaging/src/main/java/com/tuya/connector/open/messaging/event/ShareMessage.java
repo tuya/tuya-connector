@@ -16,12 +16,14 @@ public class ShareMessage extends BaseTuyaMessage {
     public static final String ADD_DEV_IDS = "addDevIds";
     public static final String REMOVE_DDEV_IDS = "removedDevIds";
 
-    public ShareMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.SHARE.getType();
+    public EventType getEventType() {
+        return EventType.SHARE;
     }
+
 }

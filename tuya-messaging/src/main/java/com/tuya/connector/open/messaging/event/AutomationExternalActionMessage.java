@@ -16,9 +16,15 @@ public class AutomationExternalActionMessage extends BaseTuyaMessage {
 
     private String automationId;
 
-    public AutomationExternalActionMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
         this.automationId = messageBody.getString("automationId");
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.AUTOMATION_EXTERNAL_ACTION;
     }
 
     public String getAutomationId() {
@@ -27,10 +33,5 @@ public class AutomationExternalActionMessage extends BaseTuyaMessage {
 
     public void setAutomationId(String automationId) {
         this.automationId = automationId;
-    }
-
-    @Override
-    public String type() {
-        return EventType.AUTOMATION_EXTERNAL_ACTION.getType();
     }
 }

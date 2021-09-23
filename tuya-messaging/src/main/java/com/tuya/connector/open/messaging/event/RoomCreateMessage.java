@@ -15,12 +15,13 @@ public class RoomCreateMessage extends BaseTuyaMessage {
     public static final String UID = "uid";
     public static final String TIME = "time";
 
-    public RoomCreateMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.ROOM_CREATE.getType();
+    public EventType getEventType() {
+        return EventType.ROOM_CREATE;
     }
 }

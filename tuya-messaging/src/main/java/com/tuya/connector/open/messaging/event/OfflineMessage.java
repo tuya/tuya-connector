@@ -14,12 +14,13 @@ public class OfflineMessage extends BaseTuyaMessage {
     public static final String UID = "uid";
     public static final String TIME = "time";
     
-    public OfflineMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.OFFLINE.getType();
+    public EventType getEventType() {
+        return EventType.OFFLINE;
     }
 }

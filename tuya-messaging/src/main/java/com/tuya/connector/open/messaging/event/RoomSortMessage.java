@@ -15,12 +15,14 @@ public class RoomSortMessage extends BaseTuyaMessage {
     public static final String UID = "uid";
     public static final String TIME = "time";
 
-    public RoomSortMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.ROOM_SORT.getType();
+    public EventType getEventType() {
+        return EventType.ROOM_SORT;
     }
+
 }

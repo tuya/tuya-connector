@@ -7,6 +7,6 @@ package com.tuya.connector.open.messaging;
  * @since 2021/3/26 11:21 上午
  */
 public class SecurityInfo {
-    public static final String AK = "*********";
-    public static final String SK = "*********";
+    public static final String AK = "*****";
+    public static final String SK = "*****";
 }
