@@ -43,10 +43,6 @@ public class SceneExecuteMessage extends BaseTuyaMessage {
         return EventType.SCENE_EXECUTE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 
     public List<Item> getActions() {
         return actions;

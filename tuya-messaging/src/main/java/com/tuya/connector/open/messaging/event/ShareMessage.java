@@ -26,8 +26,4 @@ public class ShareMessage extends BaseTuyaMessage {
         return EventType.SHARE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

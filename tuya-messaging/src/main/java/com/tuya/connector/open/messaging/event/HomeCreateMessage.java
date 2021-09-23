@@ -24,10 +24,4 @@ public class HomeCreateMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.HOME_CREATE;
     }
-
-    @Override
-
-    public String type() {
-        return getEventType().getType();
-    }
 }

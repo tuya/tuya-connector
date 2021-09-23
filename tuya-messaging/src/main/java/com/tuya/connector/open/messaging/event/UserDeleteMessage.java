@@ -24,8 +24,4 @@ public class UserDeleteMessage extends BaseTuyaMessage {
         return EventType.USER_DELETE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

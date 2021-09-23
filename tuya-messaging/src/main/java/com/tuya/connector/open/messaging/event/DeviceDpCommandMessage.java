@@ -30,11 +30,6 @@ public class DeviceDpCommandMessage extends BaseTuyaMessage {
         return EventType.DEVICE_DP_COMMAND;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
-
     public List<Item> getCommand() {
         return command;
     }

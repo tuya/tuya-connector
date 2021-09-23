@@ -23,8 +23,4 @@ public class DeleteMessage extends BaseTuyaMessage {
         return EventType.DELETE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

@@ -23,9 +23,4 @@ public class RoomDeleteMessage extends BaseTuyaMessage {
         return EventType.ROOM_DELETE;
     }
 
-    @Override
-
-    public String type() {
-        return getEventType().getType();
-    }
 }

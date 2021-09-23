@@ -26,9 +26,4 @@ public class HomeUpdateMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.HOME_UPDATE;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

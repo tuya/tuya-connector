@@ -25,8 +25,4 @@ public class RoomSortMessage extends BaseTuyaMessage {
         return EventType.ROOM_SORT;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

@@ -25,9 +25,4 @@ public class BindUserMessage extends BaseTuyaMessage {
     public EventType getEventType() {
         return EventType.BIND_USER;
     }
-
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }

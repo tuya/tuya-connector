@@ -24,8 +24,4 @@ public class UserUpdateMessage extends BaseTuyaMessage {
         return EventType.USER_UPDATE;
     }
 
-    @Override
-    public String type() {
-        return getEventType().getType();
-    }
 }
