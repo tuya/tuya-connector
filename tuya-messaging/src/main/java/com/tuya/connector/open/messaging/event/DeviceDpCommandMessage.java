@@ -16,8 +16,9 @@ public class DeviceDpCommandMessage extends BaseTuyaMessage {
 
     private List<Item> command;
 
-    public DeviceDpCommandMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
         JSONArray object = messageBody.getJSONArray("command");
         if (Objects.nonNull(object)) {
             this.command = object.toJavaList(Item.class);
@@ -25,8 +26,8 @@ public class DeviceDpCommandMessage extends BaseTuyaMessage {
     }
 
     @Override
-    public String type() {
-        return EventType.DEVICE_DP_COMMAND.getType();
+    public EventType getEventType() {
+        return EventType.DEVICE_DP_COMMAND;
     }
 
     public List<Item> getCommand() {

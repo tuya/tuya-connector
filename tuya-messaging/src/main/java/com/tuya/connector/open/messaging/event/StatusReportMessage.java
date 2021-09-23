@@ -17,13 +17,19 @@ public class StatusReportMessage extends BaseTuyaMessage {
     private String dataId;
     private List<Item> status;
 
-    public StatusReportMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
         this.dataId = messageBody.getString("dataId");
         JSONArray statusArray = messageBody.getJSONArray("status");
         if (Objects.nonNull(statusArray)) {
             this.status = statusArray.toJavaList(Item.class);
         }
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.STATUS_REPORT;
     }
 
     public static class Item {
@@ -54,11 +60,6 @@ public class StatusReportMessage extends BaseTuyaMessage {
         public void setValue(Object value) {
             this.value = value;
         }
-    }
-
-    @Override
-    public String type() {
-        return EventType.ONLINE.getType();
     }
 
     public String getDataId() {

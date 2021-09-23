@@ -14,12 +14,14 @@ public class UserDeleteMessage extends BaseTuyaMessage {
     public static final String SCHEMA = "schema";
     public static final String TIME = "time";
 
-    public UserDeleteMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.USER_DELETE.getType();
+    public EventType getEventType() {
+        return EventType.USER_DELETE;
     }
+
 }

@@ -13,12 +13,14 @@ public class DeleteMessage extends BaseTuyaMessage {
     public static final String UID = "uid";
     public static final String OWNER_ID = "ownerId";
 
-    public DeleteMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.DELETE.getType();
+    public EventType getEventType() {
+        return EventType.DELETE;
     }
+
 }

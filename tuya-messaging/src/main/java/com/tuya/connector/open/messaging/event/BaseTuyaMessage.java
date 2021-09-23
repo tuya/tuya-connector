@@ -28,13 +28,15 @@ public abstract class BaseTuyaMessage implements MessageEvent, Serializable {
 
     private Map<String, Object> bizData;
 
-    public BaseTuyaMessage(SourceMessage sourceMessage) {
-        this.sourceMessage = sourceMessage;
+    public abstract EventType getEventType();
+
+    @Override
+    public String type() {
+        return getEventType().getType();
     }
 
-
-    public BaseTuyaMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        this(sourceMessage);
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        this.sourceMessage = sourceMessage;
         if (Objects.nonNull(messageBody) && messageBody.size() > 0) {
             this.bizCode = messageBody.getString("bizCode");
             this.devId = messageBody.getString("devId");
@@ -43,22 +45,6 @@ public abstract class BaseTuyaMessage implements MessageEvent, Serializable {
             this.bizData = messageBody.getJSONObject("bizData");
         }
     }
-
-    public Object bizDataOf(String key) {
-        if (Objects.isNull(bizData)) {
-            return null;
-        }
-        return bizData.get(key);
-    }
-
-    public <T> T bizDataOf(String key, Class<T> clz) {
-        Object value = bizDataOf(key);
-        if (Objects.nonNull(value)) {
-            return clz.cast(value);
-        }
-        return null;
-    }
-
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

@@ -17,12 +17,13 @@ public class HomeDeleteMessage extends BaseTuyaMessage {
     public static final String DEVICES = "devices";
     public static final String REASON = "reason";
 
-    public HomeDeleteMessage(SourceMessage sourceMessage, JSONObject messageBody) {
-        super(sourceMessage, messageBody);
+    @Override
+    public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
+        super.defaultBuild(sourceMessage, messageBody);
     }
 
     @Override
-    public String type() {
-        return EventType.HOME_DELETE.getType();
+    public EventType getEventType() {
+        return EventType.HOME_DELETE;
     }
 }
