@@ -27,7 +27,7 @@
 ```
 
 #### Configuration
-```
+```properties
 # ClientId & SecretKey generated on the Tuya Cloud Development Platform
 connector.ak=***
 connector.sk=***
