@@ -10,7 +10,7 @@
 
 ## 快速开始
 ### SpringBoot集成
-#### 依赖当前最新版本:1.0.20
+#### 依赖当前最新版本:1.1.1
 
 ```xml
 <dependency>
@@ -27,11 +27,18 @@
 ```
 
 #### 配置
-```
+```properties
 # 涂鸦IoT平台云开发应用 ClientId & SecretKey
 connector.ak=***
 connector.sk=***
 ```
+区域配置
+```properties
+# 区域配置(默认使用中国区)
+# 具体配置值参考：com.tuya.connector.open.common.constant.TuyaRegion)
+connector.region=CN
+```
+
 #### 使用
 ##### **调用OpenAPI**
 
