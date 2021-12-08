@@ -32,6 +32,12 @@
 connector.ak=***
 connector.sk=***
 ```
+region configuration
+```properties
+# region configuration(default region is China if without configuration)
+# more details, please check: com.tuya.connector.open.common.constant.TuyaRegion)
+connector.region=CN
+```
 #### Usage
 ##### **Call OpenAPI operations**
 
