@@ -6,12 +6,13 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
         <module>tuya-common</module>
         <module>tuya-spring-boot-starter</module>
+        <module>tuya-ability</module>
     </modules>
 
     <properties>
@@ -69,6 +70,12 @@
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>tuya-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-ability</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
