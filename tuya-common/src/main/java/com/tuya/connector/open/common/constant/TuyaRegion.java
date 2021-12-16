@@ -2,27 +2,35 @@ package com.tuya.connector.open.common.constant;
 
 /**
  * @Classname Region
- * @Description 地区枚举类
+ * @Description Region Enum
  * @Date 2021/4/2
- * @Author 哲也（张梓濠 zheye.zhang@tuya.com）
+ * @Author 哲也
  */
 
 public enum TuyaRegion {
 
     /**
-     * 中国大陆
+     * China
      */
     CN("https://openapi.tuyacn.com", "pulsar+ssl://mqe.tuyacn.com:7285/"),
     /**
-     * 美洲区
+     * US WEST
      */
     US("https://openapi.tuyaus.com", "pulsar+ssl://mqe.tuyaus.com:7285/"),
     /**
-     * 欧洲区
+     * US EAST
+     */
+    US_EAST("https://openapi-ueaz.tuyaus.com", "pulsar+ssl://mqe.tuyaus.com:7285/"),
+    /**
+     * European
      */
     EU("https://openapi.tuyaeu.com", "pulsar+ssl://mqe.tuyaeu.com:7285/"),
     /**
-     * 印度区
+     * Europe West
+     */
+    EU_WEST("https://openapi.tuyaeu.com", "pulsar+ssl://mqe.tuyaeu.com:7285/"),
+    /**
+     * India
      */
     IN("https://openapi.tuyain.com", "pulsar+ssl://mqe.tuyain.com:7285/");
 
