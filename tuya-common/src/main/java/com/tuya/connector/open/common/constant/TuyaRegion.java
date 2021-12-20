@@ -28,7 +28,7 @@ public enum TuyaRegion {
     /**
      * Europe West
      */
-    EU_WEST("https://openapi.tuyaeu.com", "pulsar+ssl://mqe.tuyaeu.com:7285/"),
+    EU_WEST("https://openapi-weaz.tuyaeu.com", "pulsar+ssl://mqe.tuyaeu.com:7285/"),
     /**
      * India
      */
