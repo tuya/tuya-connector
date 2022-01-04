@@ -1,4 +1,4 @@
-package com.tuya.connector.open.ability.acl.organization.model.request;
+package com.tuya.connector.open.ability.acl.idaas.model.request;
 
 import lombok.Data;
 
