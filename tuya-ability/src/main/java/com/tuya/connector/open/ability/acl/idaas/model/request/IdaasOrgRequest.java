@@ -2,11 +2,8 @@ package com.tuya.connector.open.ability.acl.idaas.model.request;
 
 import lombok.Data;
 
-/**
- *
- */
 @Data
-public class OrgRequest {
+public class IdaasOrgRequest {
     /**
      * code
      */
