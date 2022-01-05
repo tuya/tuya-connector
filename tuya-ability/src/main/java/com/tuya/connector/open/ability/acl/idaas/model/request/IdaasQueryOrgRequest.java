@@ -2,6 +2,8 @@ package com.tuya.connector.open.ability.acl.idaas.model.request;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Mario
  * @since 2022/1/4 2:40 PM
@@ -15,6 +17,11 @@ public class IdaasQueryOrgRequest {
    private String code;
 
    /**
+    * 组织标识集合
+    */
+   private List<String> codes;
+
+   /**
     * 组织名
     */
    private String name;
@@ -25,9 +32,14 @@ public class IdaasQueryOrgRequest {
    private String parentCode;
 
    /**
-    * 页面大小
+    * 组织备注
     */
-   private Integer pageSize;
+   private String remark;
+
+   /**
+    * 组织状态
+    */
+   private String status;
 
    /**
     * 页码
@@ -35,7 +47,9 @@ public class IdaasQueryOrgRequest {
    private Integer pageNumber;
 
    /**
-    * 组织状态
+    * 页面大小
     */
-   private String status;
+   private Integer pageSize;
+
+
 }

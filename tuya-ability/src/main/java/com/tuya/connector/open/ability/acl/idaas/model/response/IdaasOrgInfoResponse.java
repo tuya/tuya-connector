@@ -20,14 +20,9 @@ public class IdaasOrgInfoResponse {
    private String name;
 
    /**
-    * 备注
+    * 父组织标识
     */
-   private String remark;
-
-   /**
-    * 隔离空间id
-    */
-   private String spaceId;
+   private String parentCode;
 
    /**
     * 组织管理者
@@ -35,9 +30,9 @@ public class IdaasOrgInfoResponse {
    private String ownerUid;
 
    /**
-    * 创建时间
+    * 隔离空间id
     */
-   private String gmtCreate;
+   private String spaceId;
 
    /**
     * 是否启用 0.启用 1.未启用
@@ -45,12 +40,9 @@ public class IdaasOrgInfoResponse {
    private Integer status;
 
    /**
-    * 父组织标识
+    * 备注
     */
-   private String parentCode;
+   private String remark;
 
-   /**
-    * 父组织名称
-    */
-   private String parentName;
+
 }

@@ -3,29 +3,30 @@ package com.tuya.connector.open.ability.acl.idaas.model.request;
 import lombok.Data;
 
 @Data
-public class IdaasOrgRequest {
+public class IdaasAddOrgRequest {
+
     /**
-     * code
+     * 组织标识
      */
     private String code;
 
     /**
-     * name
+     * 组织名称
      */
     private String name;
 
     /**
-     * parentCode
+     * 父组织标识
      */
     private String parentCode;
 
     /**
-     * remark
+     * 组织备注
      */
     private String remark;
 
     /**
-     * ownerUid
+     * 组织管理者
      */
     private String ownerUid;
 }
