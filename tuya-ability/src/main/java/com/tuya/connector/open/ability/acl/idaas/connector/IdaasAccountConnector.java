@@ -3,6 +3,7 @@ package com.tuya.connector.open.ability.acl.idaas.connector;
 import com.tuya.connector.api.annotations.GET;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.api.annotations.Query;
+import com.tuya.connector.open.ability.acl.idaas.model.response.IdaasAccountRoleResponse;
 import com.tuya.connector.open.ability.acl.idaas.model.response.IdaasAccountUsersResponse;
 
 import java.util.List;
