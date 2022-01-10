@@ -9,7 +9,7 @@ import java.util.List;
  * @since 2022/1/5 10:24 AM
  */
 @Data
-public class IdaasUserUpdateRoleRequest {
+public class IdaasUserUpdateRolesRequest {
 
    String uid;
 

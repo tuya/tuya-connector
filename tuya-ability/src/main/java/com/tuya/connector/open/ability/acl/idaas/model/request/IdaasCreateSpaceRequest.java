@@ -15,9 +15,15 @@ public class IdaasCreateSpaceRequest {
 
    private String spaceCode;
 
+   private String spaceName;
+
    private String remark;
 
    private Integer authentication;
 
    private List<String> ownerList;
+
+   private Integer sync;
+
+   private Integer openApply;
 }

@@ -16,4 +16,6 @@ public class IdaasUpdateOrgRequest {
    private String parentCode;
 
    private String remark;
+
+   private String ownerUid;
 }

@@ -25,13 +25,13 @@ public interface IdaasOrganizationConnector {
      * 新增组织(同时添加组织类型的用户)
      */
     @POST("/v1.0/iot-03/idaas-prod/spaces/{space_id}/organizations")
-    Boolean addOrgProd(@Path("space_id") String spaceId, @Body IdaasAddOrgRequest request);
+    Boolean addOrgSyncUser(@Path("space_id") String spaceId, @Body IdaasAddOrgRequest request);
 
     /**
      * 删除组织
      */
     @POST("/v1.0/iot-03/idaas/spaces/{space_id}/organizations/actions/soft-delete")
-    Boolean deleteOrg(@Path("space_id") String spaceId, @Query("uid") String uid);
+    Boolean deleteOrg(@Path("space_id") String spaceId, @Query("uid") String uid, @Query("code") String code);
 
     /**
      * 更新组织
@@ -55,5 +55,5 @@ public interface IdaasOrganizationConnector {
      * 查询组织树
      */
     @GET("/v1.0/iot-03/idaas/spaces/{space_id}/organizations")
-    IdaasOrgTreeInfoResponse queryTree(@Path("space_id") String spaceId);
+    IdaasOrgTreeInfoResponse queryTree(@Path("space_id") String spaceId,@Query("code") String code, @Query("name") String name);
 }
