@@ -36,6 +36,12 @@ public class IdaasQueryOrgRequest {
     */
    private String remark;
 
+   private Long spaceId;
+
+   private String fullPath;
+
+   private String ownerUid;
+
    /**
     * 组织状态
     */

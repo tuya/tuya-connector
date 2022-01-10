@@ -17,6 +17,8 @@ public class IdaasSpaceInfoResponse {
 
    private String spaceCode;
 
+   private String spaceName;
+
    private String remark;
 
    private List<String> ownerList;
@@ -24,4 +26,8 @@ public class IdaasSpaceInfoResponse {
    private Long gmtCreate;
 
    private Long gmtModified;
+
+   private Integer sync;
+
+   private Integer openApply;
 }

@@ -7,7 +7,7 @@ import com.tuya.connector.api.annotations.POST;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.api.annotations.Query;
 import com.tuya.connector.open.ability.acl.idaas.model.request.IdaasUserAddRoleRequest;
-import com.tuya.connector.open.ability.acl.idaas.model.request.IdaasUserUpdateRoleRequest;
+import com.tuya.connector.open.ability.acl.idaas.model.request.IdaasUserUpdateRolesRequest;
 import com.tuya.connector.open.ability.acl.idaas.model.response.IdaasRoleInfoResponse;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public interface IdaasUserRoleConnector {
     * 更新用户角色
     */
    @POST("/v1.0/iot-03/idaas/user-batch-role")
-   Boolean UpdateUserRole(@Body IdaasUserUpdateRoleRequest req);
+   Boolean UpdateUserRole(@Body IdaasUserUpdateRolesRequest req);
 
    /**
     * 获取单个用户角色

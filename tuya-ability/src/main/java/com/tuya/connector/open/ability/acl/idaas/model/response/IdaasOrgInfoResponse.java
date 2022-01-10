@@ -43,6 +43,4 @@ public class IdaasOrgInfoResponse {
     * 备注
     */
    private String remark;
-
-
 }
