@@ -1,5 +1,7 @@
 package com.tuya.open.spring.boot.sample.web;
 
+import com.tuya.connector.open.api.token.TuyaToken;
+import com.tuya.open.spring.boot.sample.ability.api.DeviceConnector;
 import com.tuya.open.spring.boot.sample.ability.model.Device;
 import com.tuya.open.spring.boot.sample.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+    @Autowired
+    DeviceConnector deviceConnector;
 
     @GetMapping("/{device_id}")
     public Device getById(@PathVariable("device_id") String deviceId) {
@@ -35,4 +39,8 @@ public class DeviceController {
         return deviceService.commands(deviceId, commands);
     }
 
+    @GetMapping("/token/refresh")
+    public TuyaToken refreshToken(String token) {
+        return deviceConnector.refreshToken(token);
+    }
 }
