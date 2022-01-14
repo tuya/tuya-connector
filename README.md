@@ -43,6 +43,7 @@ connector.region=CN
 
 1. Create the `Connector` interface, which is the mapping class of OpenAPI.
 ```java
+@Controller
 public interface DeviceConnector {
     /**
      * query device info by device_id
