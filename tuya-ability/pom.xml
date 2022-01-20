@@ -6,30 +6,27 @@
     <parent>
         <artifactId>tuya-connector</artifactId>
         <groupId>com.tuya</groupId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tuya-spring-boot-starter</artifactId>
+    <artifactId>tuya-ability</artifactId>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.tuya</groupId>
-            <artifactId>connector-spring-boot-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.tuya</groupId>
             <artifactId>tuya-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.tuya</groupId>
-            <artifactId>tuya-messaging</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.tuya</groupId>
-            <artifactId>tuya-ability</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
+
 </project>
