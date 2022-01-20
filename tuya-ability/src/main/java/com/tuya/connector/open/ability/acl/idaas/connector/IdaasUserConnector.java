@@ -5,14 +5,10 @@ import com.tuya.connector.api.annotations.DELETE;
 import com.tuya.connector.api.annotations.GET;
 import com.tuya.connector.api.annotations.POST;
 import com.tuya.connector.api.annotations.Path;
-import com.tuya.connector.api.annotations.Query;
 import com.tuya.connector.open.ability.acl.idaas.model.IdaasPage;
 import com.tuya.connector.open.ability.acl.idaas.model.request.IdaasCreateUserRequest;
 import com.tuya.connector.open.ability.acl.idaas.model.request.IdaasQueryUserRequest;
-import com.tuya.connector.open.ability.acl.idaas.model.response.IdaasPermissionInfoResponse;
 import com.tuya.connector.open.ability.acl.idaas.model.response.IdaasUserInfoResponse;
-
-import java.util.List;
 
 /**
  * @author Mario
@@ -24,7 +20,7 @@ public interface IdaasUserConnector {
     * 创建用户
     */
    @POST("/v1.0/iot-03/idaas/spaces/{space_id}/users")
-   Boolean createUser(@Path("space_id")String spaceId, IdaasCreateUserRequest req);
+   Boolean createUser(@Path("space_id")String spaceId, @Body IdaasCreateUserRequest req);
 
    /**
     * 删除用户
@@ -43,16 +39,4 @@ public interface IdaasUserConnector {
     */
    @POST("/v1.0/iot-03/idaas/spaces/{space_id}/page-user")
    IdaasPage<IdaasUserInfoResponse> pageQuery(@Path("space_id")String spaceId, @Body IdaasQueryUserRequest req);
-
-   /**
-    * 查询用户的权限
-    */
-   @GET("/v1.0/iot-03/idaas/spaces/{space_id}/users/{uid}/permissions")
-   List<IdaasPermissionInfoResponse> queryUserPermissions(@Path("space_id")String spaceId, @Path("uid")String uid);
-
-   /**
-    * 校验用户权限
-    */
-   @POST("/v1.0/iot-03/idaas/valid-user-permission")
-   Boolean validUserPermission(@Query("spaceId") String spaceId, @Query("permission_code") String permissionCode, @Query("uid") String uid);
 }

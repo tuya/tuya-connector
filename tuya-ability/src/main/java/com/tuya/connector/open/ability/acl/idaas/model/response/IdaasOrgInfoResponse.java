@@ -30,11 +30,6 @@ public class IdaasOrgInfoResponse {
    private String ownerUid;
 
    /**
-    * 隔离空间id
-    */
-   private String spaceId;
-
-   /**
     * 是否启用 0.启用 1.未启用
     */
    private Integer status;
@@ -43,4 +38,6 @@ public class IdaasOrgInfoResponse {
     * 备注
     */
    private String remark;
+
+   private String spaceId;
 }

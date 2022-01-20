@@ -34,7 +34,7 @@ public interface IdaasUserRoleConnector {
     * 更新用户角色
     */
    @POST("/v1.0/iot-03/idaas/user-batch-role")
-   Boolean UpdateUserRole(@Body IdaasUserUpdateRolesRequest req);
+   Boolean updateUserRole(@Body IdaasUserUpdateRolesRequest req);
 
    /**
     * 获取单个用户角色

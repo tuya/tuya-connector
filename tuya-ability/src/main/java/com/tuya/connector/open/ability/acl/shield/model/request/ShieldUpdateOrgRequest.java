@@ -13,7 +13,7 @@ public class ShieldUpdateOrgRequest {
 
     private String uid;
 
-    private String parentCode;
+    private String parentId;
 
     private String remark;
 }

@@ -27,7 +27,7 @@ public class IdaasOrgTreeInfoResponse {
 
    private Long gmtModified;
 
-   private List<String> childOrganizations;
+   private List<IdaasOrgTreeInfoResponse> childOrganizations;
 
    private String spaceId;
 }

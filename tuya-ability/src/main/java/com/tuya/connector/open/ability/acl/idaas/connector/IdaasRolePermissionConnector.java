@@ -23,7 +23,6 @@ public interface IdaasRolePermissionConnector {
    @POST("/v1.0/iot-03/idaas/role-batch-permission")
    Boolean batchBindUserPermissions(@Body IdaasRoleBindPermissionsRequest req);
 
-
    /**
     * 根据角色code列表查询各个角色的权限
     */
