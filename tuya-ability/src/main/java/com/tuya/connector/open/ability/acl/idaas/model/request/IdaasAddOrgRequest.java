@@ -29,6 +29,4 @@ public class IdaasAddOrgRequest {
      * 组织管理者
      */
     private String ownerUid;
-
-    private Integer status;
 }

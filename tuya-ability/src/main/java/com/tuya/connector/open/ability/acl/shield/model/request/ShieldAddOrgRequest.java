@@ -9,11 +9,9 @@ import lombok.Data;
 @Data
 public class ShieldAddOrgRequest {
 
-    private String organizationCode;
-
     private String organizationName;
 
-    private String parentCode;
+    private String parentId;
 
     private String remark;
 

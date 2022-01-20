@@ -11,11 +11,11 @@ import java.util.List;
 @Data
 public class ShieldOrgTreeInfoResponse {
 
-   private String organizationCode;
+   private String organizationId;
 
    private String organizationName;
 
-   private String parentCode;
+   private String parentId;
 
    private String remark;
 

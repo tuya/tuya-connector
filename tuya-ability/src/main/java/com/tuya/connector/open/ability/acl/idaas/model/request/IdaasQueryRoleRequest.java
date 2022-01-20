@@ -11,8 +11,6 @@ import java.util.List;
 @Data
 public class IdaasQueryRoleRequest {
 
-   private List<String> roleCodes;
-
    private String roleCode;
 
    private String roleName;

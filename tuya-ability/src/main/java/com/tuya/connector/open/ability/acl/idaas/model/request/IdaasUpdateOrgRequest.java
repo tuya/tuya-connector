@@ -9,13 +9,9 @@ import lombok.Data;
 @Data
 public class IdaasUpdateOrgRequest {
 
-   private String code;
-
    private String name;
 
    private String parentCode;
 
    private String remark;
-
-   private String ownerUid;
 }
