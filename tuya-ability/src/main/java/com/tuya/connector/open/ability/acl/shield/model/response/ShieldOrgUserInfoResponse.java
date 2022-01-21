@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class ShieldOrgUserInfoResponse {
 
-   private String organizationCode;
+   private String organizationId;
 
    private String uid;
 

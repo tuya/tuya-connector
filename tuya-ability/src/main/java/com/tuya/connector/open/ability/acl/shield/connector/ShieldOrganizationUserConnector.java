@@ -25,7 +25,7 @@ public interface ShieldOrganizationUserConnector {
                             @Query("uids") String uids);
 
    @GET("/v1.0/iot-02/organizations/{organization_id}/users")
-   Page<ShieldOrgUserInfoResponse> pageUsers(@Path("organization_id") String orgCode,
+   Page<ShieldOrgUserInfoResponse> pageUsers(@Path("organization_id") String orgId,
                                              @Query("uid") String uid,
                                              @Query("page_no") Integer pageNo,
                                              @Query("page_size") Integer pageSize);

@@ -13,16 +13,18 @@ import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgInfoRe
 import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgTreeInfoResponse;
 import com.tuya.connector.open.ability.common.Page;
 
+import java.util.List;
+
 public interface ShieldOrganizationConnector {
 
     @POST("/v1.0/iot-02/organizations")
     String addOrg(ShieldAddOrgRequest req);
 
     @DELETE("/v1.0/iot-02/organizations/{organization_id}")
-    Boolean deleteOrg(@Path("organization_id") String orgCode, @Query("uid") String uid);
+    Boolean deleteOrg(@Path("organization_id") String orgId, @Query("uid") String uid);
 
     @PUT("/v1.0/iot-02/organizations/{organization_id}")
-    Boolean updateOrg(@Path("organization_id") String orgCode, @Body ShieldUpdateOrgRequest req);
+    Boolean updateOrg(@Path("organization_id") String orgId, @Body ShieldUpdateOrgRequest req);
 
     @GET("/v1.0/iot-02/organizations")
     Page<ShieldOrgInfoResponse> page(@Query("organization_ids") String orgIds,
@@ -32,9 +34,9 @@ public interface ShieldOrganizationConnector {
                                      @Query("page_size") Integer pageSize);
 
     @GET("/v1.0/iot-02/organizations/{organization_id}")
-    ShieldOrgInfoResponse queryByCode(@Path("organization_id") String ortId);
+    ShieldOrgInfoResponse queryById(@Path("organization_id") String ortId);
 
     @GET("/v1.0/iot-02/organizations-tree")
-    ShieldOrgTreeInfoResponse tree(@Query("organization_id") String orgId,
-                                   @Query("organization_name") String orgName);
+    List<ShieldOrgTreeInfoResponse> tree(@Query("organization_id") String orgId,
+                                         @Query("organization_name") String orgName);
 }
