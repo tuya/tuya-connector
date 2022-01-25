@@ -2,6 +2,8 @@ package com.tuya.connector.open.ability.acl.shield.model.request;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Mario
  * @since 2022/1/10 4:13 PM
@@ -9,5 +11,5 @@ import lombok.Data;
 @Data
 public class ShieldUserAddRoleRequest {
 
-   private String roleCode;
+   private List<String> roleCodes;
 }
