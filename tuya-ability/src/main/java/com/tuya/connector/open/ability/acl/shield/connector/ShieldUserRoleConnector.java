@@ -10,6 +10,7 @@ import com.tuya.connector.api.annotations.Query;
 import com.tuya.connector.open.ability.acl.shield.model.request.ShieldUserAddRoleRequest;
 import com.tuya.connector.open.ability.acl.shield.model.request.ShieldUserUpdateRolesRequest;
 import com.tuya.connector.open.ability.acl.shield.model.response.ShieldRoleInfoResponse;
+import com.tuya.connector.open.ability.common.Page;
 
 import java.util.List;
 
@@ -33,4 +34,7 @@ public interface ShieldUserRoleConnector {
 
    @GET("/v1.0/iot-02/users/{uid}/roles")
    List<ShieldRoleInfoResponse> queryRolesByUid(@Path("uid") String uid);
+
+   @GET("/v1.0/iot-02/{role_code}/uids")
+   Page<String> usersByRoleCode(@Path("role_code") String roleCode);
 }
