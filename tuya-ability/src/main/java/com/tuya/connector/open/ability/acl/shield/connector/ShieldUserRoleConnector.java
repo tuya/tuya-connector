@@ -36,5 +36,7 @@ public interface ShieldUserRoleConnector {
    List<ShieldRoleInfoResponse> queryRolesByUid(@Path("uid") String uid);
 
    @GET("/v1.0/iot-02/{role_code}/uids")
-   Page<String> usersByRoleCode(@Path("role_code") String roleCode);
+   Page<String> usersByRoleCode(@Path("role_code") String roleCode,
+                                @Query("page_size") Integer pageSize,
+                                @Query("page_no") Integer pageNO);
 }
