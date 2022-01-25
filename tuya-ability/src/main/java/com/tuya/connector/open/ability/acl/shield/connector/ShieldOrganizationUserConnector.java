@@ -7,8 +7,11 @@ import com.tuya.connector.api.annotations.POST;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.api.annotations.Query;
 import com.tuya.connector.open.ability.acl.shield.model.request.ShieldOrgAddUsersRequest;
+import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgInfoResponse;
 import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgUserInfoResponse;
 import com.tuya.connector.open.ability.common.Page;
+
+import java.util.List;
 
 /**
  * @author Mario
@@ -29,4 +32,7 @@ public interface ShieldOrganizationUserConnector {
                                              @Query("uid") String uid,
                                              @Query("page_no") Integer pageNo,
                                              @Query("page_size") Integer pageSize);
+
+   @GET("/v1.0/iot-02/users/{uid}/organizations")
+   List<ShieldOrgInfoResponse> queryByUid(@Path("uid") String uid);
 }
