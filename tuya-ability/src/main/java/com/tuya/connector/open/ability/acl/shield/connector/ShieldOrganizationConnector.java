@@ -18,7 +18,7 @@ import java.util.List;
 public interface ShieldOrganizationConnector {
 
     @POST("/v1.0/iot-02/organizations")
-    String addOrg(ShieldAddOrgRequest req);
+    String addOrg(@Body ShieldAddOrgRequest req);
 
     @DELETE("/v1.0/iot-02/organizations/{organization_id}")
     Boolean deleteOrg(@Path("organization_id") String orgId, @Query("uid") String uid);
