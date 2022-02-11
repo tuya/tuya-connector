@@ -14,7 +14,7 @@ public class Page<T> {
    /**
     * 总数据量
     */
-   private Long totalCount;
+   private Long total;
 
    /**
     * 是否有更多
