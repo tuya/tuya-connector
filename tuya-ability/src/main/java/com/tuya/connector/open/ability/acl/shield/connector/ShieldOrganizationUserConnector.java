@@ -1,12 +1,8 @@
 package com.tuya.connector.open.ability.acl.shield.connector;
 
-import com.tuya.connector.api.annotations.Body;
-import com.tuya.connector.api.annotations.DELETE;
-import com.tuya.connector.api.annotations.GET;
-import com.tuya.connector.api.annotations.POST;
-import com.tuya.connector.api.annotations.Path;
-import com.tuya.connector.api.annotations.Query;
+import com.tuya.connector.api.annotations.*;
 import com.tuya.connector.open.ability.acl.shield.model.request.ShieldOrgAddUsersRequest;
+import com.tuya.connector.open.ability.acl.shield.model.request.ShieldOrgRemoveUsersRequest;
 import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgInfoResponse;
 import com.tuya.connector.open.ability.acl.shield.model.response.ShieldOrgUserInfoResponse;
 import com.tuya.connector.open.ability.common.Page;
@@ -25,7 +21,7 @@ public interface ShieldOrganizationUserConnector {
 
    @DELETE("/v1.0/iot-02/organizations/{organization_id}/users")
    Boolean batchDeleteUsers(@Path("organization_id") String orgCode,
-                            @Query("uids") String uids);
+                            @Body ShieldOrgRemoveUsersRequest req);
 
    @GET("/v1.0/iot-02/organizations/{organization_id}/users")
    Page<ShieldOrgUserInfoResponse> pageUsers(@Path("organization_id") String orgId,
