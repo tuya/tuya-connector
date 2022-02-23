@@ -17,5 +17,5 @@ public class ShieldAddOrgRequest {
 
     private String remark;
 
-    private String ownerId;
+    private String ownerUid;
 }
