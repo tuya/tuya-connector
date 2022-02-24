@@ -6,7 +6,7 @@
     <parent>
         <artifactId>tuya-connector</artifactId>
         <groupId>com.tuya</groupId>
-        <version>1.1.5-SNAPSHOT</version>
+        <version>1.1.5-RC</version>
     </parent>
 
     <artifactId>tuya-ability</artifactId>
