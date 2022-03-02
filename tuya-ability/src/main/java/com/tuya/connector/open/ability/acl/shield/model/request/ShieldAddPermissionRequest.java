@@ -1,14 +1,19 @@
 package com.tuya.connector.open.ability.acl.shield.model.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Mario
  * @since 2022/1/10 4:39 PM
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShieldAddPermissionRequest {
 
     @SerializedName("permissionCode")

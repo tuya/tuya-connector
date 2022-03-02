@@ -1,5 +1,6 @@
 package com.tuya.connector.open.ability.acl.idaas.model.request;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +12,6 @@ import java.util.List;
 @Data
 public class IdaasCreatePermissionsRequest {
 
+   @SerializedName("permissionList")
    private List<IdaasCreatePermissionRequest> permissionList;
 }
