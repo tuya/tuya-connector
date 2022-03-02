@@ -18,7 +18,7 @@ public interface ShieldUserPermissionConnector {
    @GET("/v1.0/iot-02/users/{uid}/permissions")
    List<ShieldPermissionInfoResponse> queryPermissionsByUid(@Path("uid") String uid);
 
-   @POST("/v1.0/iot-02/users/{uid}/actions/permissions-valid")
+   @POST("/v1.0/iot-02/users/{uid}/actions/permission-valid")
    Boolean checkUserPermission(@Path("uid") String uid,
                                @Body ShieldUserCheckPermissionRequest req);
 }

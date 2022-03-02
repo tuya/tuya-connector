@@ -1,5 +1,6 @@
 package com.tuya.connector.open.ability.acl.idaas.model.request;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /**
@@ -12,6 +13,7 @@ public class IdaasCreatePermissionRequest {
    /**
     * 权限标识
     */
+   @SerializedName("permissionCode")
    private String permissionCode;
 
    /**
@@ -27,6 +29,7 @@ public class IdaasCreatePermissionRequest {
    /**
     * 父级权限code
     */
+   @SerializedName("parentCode")
    private String parentCode;
 
    /**
