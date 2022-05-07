@@ -25,6 +25,7 @@ public interface ShieldRolePermissionConnector {
    Boolean checkRolePermission(@Path("role_code") String roleCode,
                                @Body ShieldRoleCheckPermissionRequest req);
 
+
    @GET("/v1.0/iot-02/roles-permissions")
    List<ShieldRolePermissionsInfoResponse> queryRolesPermissions(@Query("role_codes") String roleCodes);
 
