@@ -13,5 +13,7 @@ public class ShieldRoleInfoResponse {
 
    private String roleName;
 
+   private String dimensionNo;
+
    private String remark;
 }
