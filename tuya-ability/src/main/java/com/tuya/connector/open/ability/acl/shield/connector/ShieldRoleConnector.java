@@ -28,6 +28,14 @@ public interface ShieldRoleConnector {
    Boolean updateRole(@Path("role_code") String roleCode,
                       @Body ShieldUpdateRoleRequest req);
 
+   @Deprecated
+   @GET("/v1.0/iot-02/roles")
+   Page<ShieldRoleInfoResponse> page(@Query("role_codes") String roleCodes,
+                                     @Query("role_name") String roleName,
+                                     @Query("page_no") Integer pageNo,
+                                     @Query("page_size") Integer pageSize,
+                                     @Query("gmt_modified_asc") Boolean gmtModifiedAsc);
+
    @GET("/v1.0/iot-02/roles")
    Page<ShieldRoleInfoResponse> page(@Query("role_codes") String roleCodes,
                                      @Query("role_name") String roleName,
