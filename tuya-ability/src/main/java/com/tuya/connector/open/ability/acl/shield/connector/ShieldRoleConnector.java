@@ -36,7 +36,7 @@ public interface ShieldRoleConnector {
                                      @Query("gmt_modified_asc") Boolean gmtModifiedAsc);
 
    @GET("/v1.0/iot-02/roles")
-   Page<ShieldRoleInfoResponse> pageV2(@Query("role_codes") String roleCodes,
+   Page<ShieldRoleInfoResponse> pageList(@Query("role_codes") String roleCodes,
                                      @Query("role_name") String roleName,
                                      @Query("dimension_no") String dimensionNo,
                                      @Query("page_no") Integer pageNo,
