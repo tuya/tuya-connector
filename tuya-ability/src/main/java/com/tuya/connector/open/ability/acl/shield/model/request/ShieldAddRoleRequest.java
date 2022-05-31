@@ -14,4 +14,6 @@ public class ShieldAddRoleRequest {
    private String roleName;
 
    private String remark;
+
+   private String dimensionNo;
 }
