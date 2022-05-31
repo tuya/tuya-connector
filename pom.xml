@@ -6,12 +6,13 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.5</version>
+    <version>1.1.7</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
         <module>tuya-common</module>
         <module>tuya-spring-boot-starter</module>
+        <module>tuya-ability</module>
     </modules>
 
     <properties>
@@ -19,7 +20,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <connector.version>1.1.2</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
-        <lombok.version>1.18.8</lombok.version>
+        <lombok.version>1.18.18</lombok.version>
         <logback.version>1.2.3</logback.version>
         <fastjson.version>1.2.73</fastjson.version>
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
@@ -69,6 +70,12 @@
             <dependency>
                 <groupId>com.tuya</groupId>
                 <artifactId>tuya-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tuya</groupId>
+                <artifactId>tuya-ability</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -149,12 +156,12 @@
 
     <distributionManagement>
         <repository>
-            <id>maven</id>
+            <id>tuya-maven</id>
             <name>tuya maven release</name>
             <url>https://maven-other.tuya.com/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>maven</id>
+            <id>tuya-maven</id>
             <name>tuya maven snapshot</name>
             <url>https://maven-other.tuya.com/repository/maven-snapshots/</url>
         </snapshotRepository>

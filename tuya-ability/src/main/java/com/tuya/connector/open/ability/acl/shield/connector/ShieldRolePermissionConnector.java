@@ -21,9 +21,10 @@ public interface ShieldRolePermissionConnector {
    Boolean batchAddRolePermissions(@Path("role_code") String roleCode,
                                    @Body ShieldRoleBatchAddPermissionsRequest req);
 
-   @POST("/v1.0/iot-02/roles/{role_code}/actions/permissions-valid")
+   @POST("/v1.0/iot-02/roles/{role_code}/actions/permission-valid")
    Boolean checkRolePermission(@Path("role_code") String roleCode,
                                @Body ShieldRoleCheckPermissionRequest req);
+
 
    @GET("/v1.0/iot-02/roles-permissions")
    List<ShieldRolePermissionsInfoResponse> queryRolesPermissions(@Query("role_codes") String roleCodes);
