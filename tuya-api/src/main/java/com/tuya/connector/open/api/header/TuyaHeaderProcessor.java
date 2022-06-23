@@ -180,7 +180,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         String path = url.getPath();
         log.info("URL PATH: {}", path);
 
-        return !path.contains("/v1.0/token") || !path.contains("/v1.0/authorize_token");
+        return !path.contains("/v1.0/token") && !path.contains("/v1.0/authorize_token");
     }
 
 }
