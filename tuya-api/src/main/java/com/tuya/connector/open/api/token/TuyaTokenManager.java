@@ -1,5 +1,6 @@
 package com.tuya.connector.open.api.token;
 
+import com.alibaba.ttl.TtlCallable;
 import com.tuya.connector.api.config.Configuration;
 import com.tuya.connector.api.core.DefaultConnectorFactory;
 import com.tuya.connector.api.token.TokenManager;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,20 +63,13 @@ public class TuyaTokenManager implements TokenManager<TuyaToken> {
     @Override
     @SneakyThrows
     public TuyaToken refreshToken() {
-        String ak = configuration.getApiDataSource().getAk();
-        String sk = configuration.getApiDataSource().getSk();
-        Future<TuyaToken> future = EXECUTOR.submit(() -> {
-            try {
-                configuration.getApiDataSource().setAk(ak);
-                configuration.getApiDataSource().setSk(sk);
+        TtlCallable<TuyaToken> tokenCallable = TtlCallable.get(new Callable<TuyaToken>() {
+            @Override
+            public TuyaToken call() throws Exception {
                 return connector.getToken(TOKEN_GRANT_TYPE);
-            } catch (Exception e) {
-                log.error("refresh token error", e);
-                return null;
-            } finally {
-                configuration.getApiDataSource().clear();
             }
-        });
+        },true);
+        Future<TuyaToken> future = EXECUTOR.submit(tokenCallable);
         TuyaToken refreshedToken = future.get();
         if (Objects.isNull(refreshedToken)) {
             log.error("refreshed token required not null.");

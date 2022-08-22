@@ -176,7 +176,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         return configuration;
     }
 
-    private boolean isWithToken(URL url) {
+    protected final boolean isWithToken(URL url) {
         String path = url.getPath();
         log.info("URL PATH: {}", path);
 
