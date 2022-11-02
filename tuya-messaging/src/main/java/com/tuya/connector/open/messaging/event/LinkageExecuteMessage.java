@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author: jinyun.zhou@tuya.com
  * @create: 2021-04-01 15:26
  **/
-public class SceneExecuteMessage extends BaseTuyaMessage {
+public class LinkageExecuteMessage extends BaseTuyaMessage {
     /**
      * private field
      */

@@ -4,6 +4,9 @@ import com.tuya.connector.open.messaging.autoconfig.EnableMessaging;
 import com.tuya.connector.spring.annotations.ConnectorScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @ConnectorScan(basePackages = "com.tuya.open.spring.boot.sample.ability.api")
 @EnableMessaging

@@ -135,4 +135,4 @@ You can add `ApplicationListener` to listen for required events. The `connector`
 | BindUserMessage | bindUser | Bind the device to a user account. |
 | UpgradeStatusMessage | upgradeStatus | The update status. |
 | AutomationExternalActionMessage | automationExternalAction | Automate an external action. |
-| SceneExecuteMessage | sceneExecute | Execute a scene. |
+| LinkageExecuteMessage | sceneExecute | Execute a scene. |

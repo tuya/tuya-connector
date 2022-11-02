@@ -1,5 +1,6 @@
 package com.tuya.open.spring.boot.sample.ability.messaging;
 
+import com.tuya.connector.open.messaging.event.LinkageExecuteMessage;
 import com.tuya.connector.open.messaging.event.NameUpdateMessage;
 import com.tuya.connector.open.messaging.event.StatusReportMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,12 @@ public class TuyaMessageListener {
     @EventListener
     public void nameUpdateMessage(NameUpdateMessage message) {
         log.info("NameUpdate event happened: {}", message);
+    }
+
+    @EventListener
+    public void linkageMessage(LinkageExecuteMessage message){
+        //linkage rule run msg
+        log.info("Linkage exec event: {}",message);
     }
 
 }
