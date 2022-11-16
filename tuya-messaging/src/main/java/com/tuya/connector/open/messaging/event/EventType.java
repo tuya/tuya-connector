@@ -28,7 +28,7 @@ public enum EventType {
 
     AUTOMATION_EXTERNAL_ACTION(22, "automationExternalAction", "自动化外部动作"),
 
-    SCENE_EXECUTE(25, "sceneExecute", "场景执行"),
+    SCENE_EXECUTE(25, "automationExecute", "场景执行"),
 
     ROOM_NAME_UPDATE(34, "roomNameUpdate", "房间更名"),
     ROOM_SORT(34, "roomSort", "房间排序"),

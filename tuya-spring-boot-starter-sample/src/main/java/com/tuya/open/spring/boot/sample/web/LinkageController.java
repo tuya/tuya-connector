@@ -1,7 +1,6 @@
 package com.tuya.open.spring.boot.sample.web;
 
 import com.tuya.connector.api.annotations.Body;
-import com.tuya.connector.api.annotations.GET;
 import com.tuya.connector.api.annotations.POST;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.open.ability.common.Page;
@@ -14,6 +13,7 @@ import com.tuya.connector.open.ability.linkage.model.response.LinkageListRespons
 import com.tuya.connector.open.ability.linkage.model.response.LinkageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.GET;
 
 /**
  * LinkageController
@@ -44,6 +44,7 @@ public class LinkageController {
     }
 
     @GetMapping("/{id}")
+    @GET
     LinkageResponse getRule(@PathVariable("id") String ruleId) {
         return linkageConnector.getRule(ruleId);
     }

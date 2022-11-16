@@ -1,5 +1,6 @@
 package com.tuya.open.spring.boot.sample.ability.messaging;
 
+import com.tuya.connector.open.messaging.event.BaseTuyaMessage;
 import com.tuya.connector.open.messaging.event.LinkageExecuteMessage;
 import com.tuya.connector.open.messaging.event.NameUpdateMessage;
 import com.tuya.connector.open.messaging.event.StatusReportMessage;
