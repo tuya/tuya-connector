@@ -8,7 +8,9 @@ import com.tuya.connector.open.ability.common.Page;
 import com.tuya.connector.open.ability.linkage.connector.LinkageConnector;
 import com.tuya.connector.open.ability.linkage.model.request.LinkageAddRequest;
 import com.tuya.connector.open.ability.linkage.model.request.LinkageModifyRequest;
+import com.tuya.connector.open.ability.linkage.model.response.DeviceSpecificationResponse;
 import com.tuya.connector.open.ability.linkage.model.response.LinkageAddResponse;
+import com.tuya.connector.open.ability.linkage.model.response.LinkageListResponse;
 import com.tuya.connector.open.ability.linkage.model.response.LinkageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +33,9 @@ public class LinkageController {
         return linkageConnector.addRule(addRequest);
     }
 
-    @DeleteMapping("/{id}")
-    Boolean deleteRule(@PathVariable("id") String ruleId){
-        return linkageConnector.deleteRule(ruleId);
+    @DeleteMapping()
+    Boolean deleteRule(@RequestParam("ids") String ruleIds){
+        return linkageConnector.deleteRule(ruleIds);
     }
 
     @PutMapping("/{id}")
@@ -46,20 +48,26 @@ public class LinkageController {
         return linkageConnector.getRule(ruleId);
     }
 
-    @POST("/{id}/actions/enable")
-    Boolean enableRule(@PathVariable("id") String ruleId){
-        return linkageConnector.enableRule(ruleId);
+    @PostMapping("/actions/enable")
+    Boolean enableRule(@RequestParam("ids") String ruleIds){
+        return linkageConnector.enableRule(ruleIds);
     }
 
-    @POST("/{id}/actions/disable")
+    @PostMapping("/actions/disable")
     Boolean disableRule(@PathVariable("id") String ruleId){
         return linkageConnector.disableRule(ruleId);
     }
 
     @GetMapping
-    Page<LinkageResponse> listRules(@RequestParam("page_size") Integer pageSize,
-                                    @RequestParam("page_no") Integer pageNo,
-                                    @RequestParam("type") String type) {
-        return linkageConnector.listRules(type, pageNo, pageSize);
+    Page<LinkageListResponse> listRules(@RequestParam(value = "page_size",defaultValue = "10") Integer pageSize,
+                                    @RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                    @RequestParam(value = "type",required = false) String type,
+                                    @RequestParam("space_id") String spaceId) {
+        return linkageConnector.listRules(type, pageNo, pageSize,spaceId);
+    }
+
+    @GetMapping("devices/{device_id}/specifications")
+    DeviceSpecificationResponse getDeviceLinkageSpec(@PathVariable("device_id") String deviceId) {
+        return linkageConnector.getDeviceLinkageSpec(deviceId);
     }
 }

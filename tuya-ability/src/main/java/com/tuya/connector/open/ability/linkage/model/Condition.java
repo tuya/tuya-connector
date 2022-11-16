@@ -13,6 +13,6 @@ import lombok.Data;
 public class Condition {
     private String entityId;
     private String entityType;
+    private Integer code;
     private Expr expr;
-    private String type;
 }

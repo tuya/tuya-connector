@@ -2,6 +2,7 @@ package com.tuya.connector.open.ability.linkage.model.request;
 
 import com.tuya.connector.open.ability.linkage.model.Action;
 import com.tuya.connector.open.ability.linkage.model.Condition;
+import com.tuya.connector.open.ability.linkage.model.EffectiveTime;
 import com.tuya.connector.open.ability.linkage.model.Expr;
 import lombok.Data;
 
@@ -22,5 +23,5 @@ public class LinkageAddRequest {
     private String decisionExpr;
     private List<Condition> conditions;
     private List<Action> actions;
-    private String effectiveTime;
+    private EffectiveTime effectiveTime;
 }

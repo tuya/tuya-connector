@@ -12,5 +12,5 @@ import lombok.Data;
 public class Expr {
     private String statusCode;
     private String comparator;
-    private String statusValue;
+    private Object statusValue;
 }
