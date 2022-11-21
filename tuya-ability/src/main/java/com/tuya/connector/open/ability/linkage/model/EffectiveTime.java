@@ -13,5 +13,5 @@ public class EffectiveTime {
     private String start;
     private String end;
     private String loops;
-    private String timezoneId;
+    private String timeZoneId;
 }
