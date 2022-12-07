@@ -137,7 +137,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         String query = url.getQuery();
         String path = url.getPath();
         if(!StringUtils.hasText(query)){
-            return path;
+            return decode(path);
         }
         Map<String,String> kvMap = new TreeMap<>();
         String[] kvs = query.split("\\&");
@@ -149,8 +149,8 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
                 kvMap.put(kvArr[0],"");
             }
         }
-        return path + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+ encode(it.getValue()))
-                .collect(Collectors.joining("&"));
+        return decode(path) + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+ encode(it.getValue()))
+            .collect(Collectors.joining("&"));
     }
 
     @SneakyThrows
