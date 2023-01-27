@@ -11,10 +11,8 @@ import java.io.Serializable;
  * @date 2023/1/27
  */
 @Data
-public class AssetRequest implements Serializable {
+public class BatchAssetsAuthorizedRequest implements Serializable {
 
-    private static final long serialVersionUID = 155965236652121243L;
-    private String name;
-    private String meta_id;
-    private String parent_asset_id;
+    private Boolean authorized_children;
+    private String asset_ids;
 }
