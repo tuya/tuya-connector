@@ -1,12 +1,10 @@
 package com.tuya.connector.open.ability.asset.connector;
 
-import com.tuya.connector.api.annotations.*;
-import com.tuya.connector.open.ability.asset.model.request.AssetModifyRequest;
-import com.tuya.connector.open.ability.asset.model.response.Assets;
-import com.tuya.connector.open.ability.common.AbilityPage;
-import com.tuya.connector.open.ability.device.model.request.DeviceCommandRequest;
-
-import java.util.List;
+import com.tuya.connector.api.annotations.Body;
+import com.tuya.connector.api.annotations.DELETE;
+import com.tuya.connector.api.annotations.POST;
+import com.tuya.connector.api.annotations.Path;
+import com.tuya.connector.open.ability.asset.model.request.AssetRequest;
 
 /**
  * <p> TODO
@@ -32,7 +30,7 @@ public interface AssetConnector {
      * @return
      */
     @POST("/v1.0/iot-02/assets")
-    String addAsset(@Body AssetModifyRequest request);
+    String addAsset(@Body AssetRequest request);
 
 
 }
