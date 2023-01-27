@@ -5,6 +5,7 @@ import com.tuya.connector.api.annotations.DELETE;
 import com.tuya.connector.api.annotations.POST;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.open.ability.user.model.request.UserRequest;
+import com.tuya.connector.open.ability.user.model.response.AddUserResponse;
 
 /**
  * Description  TODO
@@ -30,7 +31,7 @@ public interface UserConnector {
      * @return
      */
     @POST("/v1.0/iot-02/users")
-    String addUser(@Body UserRequest request);
+    AddUserResponse addUser(@Body UserRequest request);
 
 
 }
