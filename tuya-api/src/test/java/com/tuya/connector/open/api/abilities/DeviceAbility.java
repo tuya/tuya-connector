@@ -15,4 +15,6 @@ public interface DeviceAbility {
     Device getById(String deviceId);
 
     Boolean commands(String deviceId, Map<String, Object> commands);
+
+    Object specification(String deviceId);
 }
