@@ -45,5 +45,14 @@ public interface AssetConnector {
     @POST("/v1.0/iot-03/users/{user_id}/actions/batch-assets-authorized")
     Boolean batchAssetsAuthorized(@Path(("user_id")) String userId, @Body BatchAssetsAuthorizedRequest request);
 
+    /**
+     * Unauthorize Assets to a User
+     *
+     * @param request
+     * @return
+     */
+    @POST("/v1.0/iot-03/users/{user_id}/actions/batch-assets-unauthorized")
+    Boolean batchAssetsUnauthorized(@Path(("user_id")) String userId, @Body BatchAssetsAuthorizedRequest request);
+
 
 }
