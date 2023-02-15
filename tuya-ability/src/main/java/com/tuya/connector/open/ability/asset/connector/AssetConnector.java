@@ -1,13 +1,9 @@
 package com.tuya.connector.open.ability.asset.connector;
 
-import com.tuya.connector.api.annotations.Body;
-import com.tuya.connector.api.annotations.DELETE;
-import com.tuya.connector.api.annotations.POST;
-import com.tuya.connector.api.annotations.Path;
+import com.tuya.connector.api.annotations.*;
 import com.tuya.connector.open.ability.asset.model.request.AssetRequest;
 import com.tuya.connector.open.ability.asset.model.request.BatchAssetsAuthorizedRequest;
-import com.tuya.connector.open.ability.user.model.request.UserRequest;
-import com.tuya.connector.open.ability.user.model.response.AddUserResponse;
+import com.tuya.connector.open.ability.asset.model.response.GetDevicesByAssetIdResponse;
 
 /**
  * <p> TODO
@@ -53,6 +49,16 @@ public interface AssetConnector {
      */
     @POST("/v1.0/iot-03/users/{user_id}/actions/batch-assets-unauthorized")
     Boolean batchAssetsUnauthorized(@Path(("user_id")) String userId, @Body BatchAssetsAuthorizedRequest request);
+
+
+    /**
+     * Get Devices by Asset Id
+     *
+     * @param request
+     * @return
+     */
+    @GET("/v1.0/iot-02/assets/{asset_id}/devices")
+    GetDevicesByAssetIdResponse getDevicesByAssetId(@Path(("asset_id")) String asset_id);
 
 
 }
