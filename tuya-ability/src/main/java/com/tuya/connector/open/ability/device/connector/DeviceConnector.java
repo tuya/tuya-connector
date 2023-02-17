@@ -1,6 +1,7 @@
 package com.tuya.connector.open.ability.device.connector;
 
 import com.tuya.connector.api.annotations.*;
+import com.tuya.connector.api.model.Result;
 import com.tuya.connector.open.ability.common.AbilityPage;
 import com.tuya.connector.open.ability.device.model.request.DeviceCommandRequest;
 import com.tuya.connector.open.ability.device.model.request.DeviceModifyRequest;
@@ -148,10 +149,13 @@ public interface DeviceConnector {
                                                           @Query("codes") String codes,
                                                           @Query("size") Integer pageSize);
 
+    @POST("/v1.0/devices/{device_id}/door-lock/password-ticket")
+    DoorLockPasswordTicketResponse doorLockPasswordTicket(@Path("device_id") String deviceId);
+
     @POST("/v2.0/devices/{device_id}/door-lock/temp-password")
     DoorLockTempPasswordResponse doorLockTempPassword(@Path("device_id") String deviceId, @Body DoorLockTempPasswordRequest doorLockTempPasswordRequest);
 
-    @POST("/v1.0/devices/{device_id}/door-lock/password-ticket")
-    DoorLockPasswordTicketResponse doorLockPasswordTicket(@Path("device_id") String deviceId);
+    @DELETE("/v1.0/devices/{device_id}/door-lock/temp-passwords/{password_id}")
+    Result deleteTempPassword(@Path("device_id") String deviceId, @Path("password_id") String password_id);
 
 }
