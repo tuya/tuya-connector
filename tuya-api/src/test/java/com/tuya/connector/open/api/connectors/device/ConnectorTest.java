@@ -32,9 +32,11 @@ public class ConnectorTest {
     static IndustryDeviceConnector industryDeviceConnector;
     String DEVICE_ID = "*********";
 
+    static Configuration config;
+
     @BeforeAll
     static void init() {
-        Configuration config = new Configuration();
+        config = new Configuration();
         ApiDataSource dataSource = ApiDataSource.DEFAULT_BUILDER.build();
         dataSource.setBaseUrl("https://openapi.tuyacn.com");
 
@@ -75,6 +77,23 @@ public class ConnectorTest {
         cmdWrapper.commands.get(0).value = true;
         industryDeviceConnector.sendCommands(deviceId,cmdWrapper);
     }
+
+
+    /**
+     * 中文：zh
+     * 英文：en
+     */
+    @Test
+    void testLanguage() {
+        config.getApiDataSource().setLang("zh-CN");
+        Object ret1 = deviceConnector.specification(DEVICE_ID);
+        log.info("中文语言请求结果: {}", ret1);
+
+        config.getApiDataSource().setLang("en-US");
+        Object ret2 = deviceConnector.specification(DEVICE_ID);
+        log.info("English language result: {}", ret2);
+    }
+
     static class Command{
         String code;
         Object value;
