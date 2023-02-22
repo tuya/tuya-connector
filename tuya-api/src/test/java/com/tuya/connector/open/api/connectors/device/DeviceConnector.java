@@ -34,4 +34,8 @@ public interface DeviceConnector extends DeviceAbility {
     @Override
     @POST("/v1.0/devices/{device_id}/commands")
     Boolean commands(@Path("device_id") String deviceId, @Body Map<String, Object> commands);
+
+    @Override
+    @GET("/v1.2/iot-03/devices/{device_id}/specification")
+    Object specification(@Path("device_id") String deviceId);
 }
