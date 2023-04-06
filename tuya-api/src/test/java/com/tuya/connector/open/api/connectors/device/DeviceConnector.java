@@ -22,7 +22,7 @@ public interface DeviceConnector extends DeviceAbility {
      * @return
      */
     @Override
-    @GET("/v1.0/devices/{device_id}")
+    @GET("/v1.1/iot-03/devices/{device_id}")
     Device getById(@Path("device_id") String deviceId);
 
     /**
