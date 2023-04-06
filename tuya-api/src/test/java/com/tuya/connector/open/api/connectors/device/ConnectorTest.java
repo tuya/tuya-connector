@@ -64,18 +64,17 @@ public class ConnectorTest {
     void getById() {
         Device device = deviceConnector.getById(DEVICE_ID);
         log.error("DEVICE: {}", device);
-        Assertions.assertEquals(device.getUuid(), DEVICE_ID);
+        Assertions.assertEquals(device.getId(), DEVICE_ID);
     }
 
     @Test
     void testSendCommand(){
-        String deviceId = "*********";
         CommandWrapper cmdWrapper = new CommandWrapper();
         cmdWrapper.commands = new ArrayList<>();
         cmdWrapper.commands.add(new Command());
         cmdWrapper.commands.get(0).code = "basic_indicator";
         cmdWrapper.commands.get(0).value = true;
-        industryDeviceConnector.sendCommands(deviceId,cmdWrapper);
+        industryDeviceConnector.sendCommands(DEVICE_ID,cmdWrapper);
     }
 
 
