@@ -159,6 +159,9 @@ public interface DeviceConnector {
     @DELETE("/v1.0/devices/{device_id}/door-lock/temp-passwords/{password_id}")
     Result deleteTempPassword(@Path("device_id") String deviceId, @Path("password_id") String password_id);
 
+    @POST("/v1.0/devices/{device_id}/door-lock/open-door")
+    Result openDoor(@Path("device_id") String deviceId);
+
     @PUT("/v1.0/devices/{device_id}/door-lock/temp-passwords/{password_id}/modify-password")
     Result modifyTempPassword(@Path("device_id") String deviceId, @Path("password_id") String password_id,
                               @Body DoorLockTempPasswordRequest doorLockTempPasswordRequest);
