@@ -6,7 +6,7 @@
     <parent>
         <artifactId>tuya-connector</artifactId>
         <groupId>com.tuya</groupId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
     </parent>
 
     <artifactId>tuya-spring-boot-starter</artifactId>
@@ -27,9 +27,5 @@
             <artifactId>tuya-messaging</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.tuya</groupId>
-            <artifactId>tuya-ability</artifactId>
-        </dependency>
     </dependencies>
 </project>
