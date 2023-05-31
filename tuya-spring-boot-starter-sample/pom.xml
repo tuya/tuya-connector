@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <tuya-spring-boot-starter.version>1.2.1</tuya-spring-boot-starter.version>
+        <tuya-spring-boot-starter.version>1.2.2</tuya-spring-boot-starter.version>
     </properties>
     <dependencies>
         <dependency>
