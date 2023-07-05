@@ -37,6 +37,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
     private final static ExecutorService EXECUTORS = Executors.newSingleThreadExecutor();
 
     public TuyaMessageDispatcher(TuyaMessageDataSource tuyaMessageDataSource) {
+        log.debug("###STEP 1: start init tuya message dispatcher");
         this.tuyaMessageDataSource = tuyaMessageDataSource;
     }
 
@@ -49,6 +50,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
         String url = tuyaMessageDataSource.getUrl();
 
         PulsarClient client = PulsarClient.builder()
+            .loadConf(tuyaMessageDataSource.clientLoadConf())
             .serviceUrl(url)
             .authentication(new Authentication() {
                 private static final long serialVersionUID = -826735355004851795L;
@@ -80,18 +82,29 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
                 public void configure(Map<String, String> authParams) {}
 
                 @Override
-                public void start() throws PulsarClientException {}
+                public void start() throws PulsarClientException {
+                    log.debug("pulsar client start auth");
+                }
 
                 @Override
-                public void close() throws IOException {}
+                public void close() throws IOException {
+                    log.debug("pulsar client close auth");
+                }
             })
-            .loadConf(tuyaMessageDataSource.clientLoadConf())
             .build();
+        log.debug("###STEP 2: pulsar client build success, client config: {}",
+            JSON.toJSONString(tuyaMessageDataSource.clientLoadConf()));
+
+        String topic = String.format("%s/out/event", ak);
+        String subscriptionName = String.format("%s-sub", ak);
         Consumer consumer = client.newConsumer()
-            .topic(String.format("%s/out/%s", ak, "event"))
-            .subscriptionName(String.format("%s-sub", ak))
             .loadConf(tuyaMessageDataSource.consumerLoadConf())
+            .topic(topic)
+            .subscriptionName(subscriptionName)
             .subscribe();
+        log.debug("###STEP 3: pulsar consumer create success, topic: {}, subscriptionName: {}, consumer config: {}",
+            topic, subscriptionName, JSON.toJSONString(tuyaMessageDataSource.consumerLoadConf()));
+
         EXECUTORS.execute(worker(consumer, sk));
     }
 
@@ -113,28 +126,49 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
         ctx = applicationContext;
     }
 
+    @SuppressWarnings("all")
     private Runnable worker(Consumer consumer, String sk) {
+        log.debug("###STEP 4: start create tuya message dispatcher worker");
         Thread worker = new Thread(
             () -> {
+                log.debug("###STEP 6: tuya message dispatcher worker is running...");
+                boolean consumerFlag = true;
                 while (switchFlag) {
                     Message message = null;
                     BaseTuyaMessage baseTuyaMessage = null;
+                    MessageId messageId = null;
+                    String tid = null;
                     try {
+                        log.info("###Consume STEP 1: receive message");
                         message = consumer.receive();
                         if (Objects.isNull(message)) {
                             continue;
                         }
+                        messageId = message.getMessageId();
+                        tid = message.getProperty("tid");
+                        log.info("###Consume STEP 2: message received, messageId: {}, tid: {}", messageId, tid);
                         SourceMessage sourceMessage = JSON.parseObject(new String(message.getData()), SourceMessage.class);
                         BaseTuyaMessage msg = MessageFactory.extract(sourceMessage, sk);
+                        log.info("###Consume STEP 3: message parsed, messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
                         ctx.publishEvent(msg);
+                        log.info("###Consume STEP 4: publish message to spring event , messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
+                        consumerFlag = true;
                     } catch (Exception e) {
-                        log.error(String.format("Consume tuya message error, source message: %s ", baseTuyaMessage), e);
+                        consumerFlag = false;
+                        log.error(String.format("Consume tuya message error, messageId: %s, tid: %s ", messageId, tid), e);
                     } finally {
                         if (Objects.nonNull(message)) {
                             try {
-                                consumer.acknowledge(message);
+                                log.info("###Consume STEP 5: start message ack, messageId: {}, tid: {}", messageId, tid);
+                                if (consumerFlag) {
+                                    consumer.acknowledge(message);
+                                    log.info("###Consume STEP 6: message ack success, messageId: {}, tid: {}", messageId, tid);
+                                } else {
+                                    consumer.negativeAcknowledge(message);
+                                    log.info("###Consume STEP 6: message ack negative, messageId: {}, tid: {}", messageId, tid);
+                                }
                             } catch (PulsarClientException e) {
-                                log.error(String.format("Ack tuya message error, pulsar message: %s ", message), e);
+                                log.error(String.format("Ack tuya message error, messageId: %s, tid: %s ", messageId, tid), e);
                             }
                         }
                     }
@@ -142,6 +176,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
             }
         );
         worker.setDaemon(true);
+        log.debug("###STEP 5: create tuya message dispatcher worker success");
         return worker;
     }
 
