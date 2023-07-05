@@ -1,6 +1,5 @@
 package com.tuya.connector.open.messaging.autoconfig;
 
-import com.tuya.connector.messaging.MessageDataSource;
 import com.tuya.connector.open.common.constant.EnvConstant;
 import com.tuya.connector.open.common.constant.TuyaRegion;
 import com.tuya.connector.open.messaging.TuyaMessageDispatcher;
@@ -47,8 +46,8 @@ public class DynamicMessageManager implements EnvironmentAware, ApplicationConte
             String region = env.getProperty(EnvConstant.ENV_REGION);
             url = StringUtils.isEmpty(region) ? TuyaRegion.CN.getMsgUrl() : TuyaRegion.valueOf(region).getMsgUrl();
         }
-        MessageDataSource messageDataSource = MessageDataSource.builder().url(url).ak(ak).sk(sk).build();
-        TuyaMessageDispatcher tuyaMessageDispatcher = new TuyaMessageDispatcher(messageDataSource);
+        TuyaMessageDataSource tuyaMessageDataSource = new TuyaMessageDataSource(url, ak, sk);
+        TuyaMessageDispatcher tuyaMessageDispatcher = new TuyaMessageDispatcher(tuyaMessageDataSource);
         tuyaMessageDispatcher.setApplicationContext(ctx);
         tuyaMessageDispatcher.dispatch();
         messageMap.put(ak, tuyaMessageDispatcher);
