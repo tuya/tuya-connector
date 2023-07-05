@@ -3,9 +3,12 @@ package com.tuya.connector.open.messaging.autoconfig;
 import com.tuya.connector.messaging.MessageDataSource;
 import com.tuya.connector.open.messaging.TuyaMessageDispatcher;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 /**
  * <p> TODO
@@ -26,13 +29,27 @@ public class MessageAutoConfiguration {
     }
 
     @Bean
-    public TuyaMessageDispatcher tuyaMessageDispatcher() {
-        MessageDataSource messageDataSource = MessageDataSource.builder()
-            .url(messageProperties.getUrl())
-            .ak(messageProperties.getAk())
-            .sk(messageProperties.getSk())
-            .build();
-        return new TuyaMessageDispatcher(messageDataSource);
+    public TuyaMessageDispatcher tuyaMessageDispatcher(TuyaMessageDataSource tuyaMessageDataSource) {
+        if (StringUtils.isEmpty(tuyaMessageDataSource.getUrl())) {
+            tuyaMessageDataSource.setUrl(messageProperties.getUrl());
+        }
+        if (StringUtils.isEmpty(tuyaMessageDataSource.getAk())) {
+            tuyaMessageDataSource.setUrl(messageProperties.getAk());
+        }
+        if (StringUtils.isEmpty(tuyaMessageDataSource.getSk())) {
+            tuyaMessageDataSource.setUrl(messageProperties.getSk());
+        }
+        return new TuyaMessageDispatcher(tuyaMessageDataSource);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public TuyaMessageDataSource tuyaMessageDataSource() {
+        return new TuyaMessageDataSource(
+            messageProperties.getUrl(),
+            messageProperties.getAk(),
+            messageProperties.getSk()
+        );
     }
 
 }
