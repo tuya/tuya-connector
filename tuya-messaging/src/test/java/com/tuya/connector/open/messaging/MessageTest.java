@@ -1,6 +1,6 @@
 package com.tuya.connector.open.messaging;
 
-import com.tuya.connector.messaging.MessageDataSource;
+import com.tuya.connector.open.messaging.autoconfig.TuyaMessageDataSource;
 import com.tuya.connector.open.messaging.event.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
@@ -73,17 +73,13 @@ public class MessageTest {
         }
 
         @Bean
-        public TuyaMessageDispatcher tuyaMessageDispatcher(MessageDataSource messageDataSource) {
-            return new TuyaMessageDispatcher(messageDataSource);
+        public TuyaMessageDispatcher tuyaMessageDispatcher(TuyaMessageDataSource tuyaMessageDataSource) {
+            return new TuyaMessageDispatcher(tuyaMessageDataSource);
         }
 
         @Bean
-        public MessageDataSource messageDataSource() {
-            return MessageDataSource.builder()
-                    .url("pulsar+ssl://mqe.tuyacn.com:7285/")
-                    .ak(SecurityInfo.AK)
-                    .sk(SecurityInfo.SK)
-                    .build();
+        public TuyaMessageDataSource tuyaMessageDataSource() {
+            return new TuyaMessageDataSource("pulsar+ssl://mqe.tuyacn.com:7285/", SecurityInfo.AK, SecurityInfo.SK);
         }
     }
 
