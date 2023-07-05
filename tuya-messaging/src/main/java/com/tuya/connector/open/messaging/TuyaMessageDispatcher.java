@@ -3,6 +3,7 @@ package com.tuya.connector.open.messaging;
 import com.alibaba.fastjson.JSON;
 import com.tuya.connector.messaging.MessageDataSource;
 import com.tuya.connector.messaging.MessageDispatcher;
+import com.tuya.connector.open.messaging.autoconfig.TuyaMessageDataSource;
 import com.tuya.connector.open.messaging.event.BaseTuyaMessage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -32,24 +33,23 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
 
     static ApplicationContext ctx;
 
-    private final MessageDataSource messageDataSource;
+    private final TuyaMessageDataSource tuyaMessageDataSource;
     private final static ExecutorService EXECUTORS = Executors.newSingleThreadExecutor();
 
-    public TuyaMessageDispatcher(MessageDataSource messageDataSource) {
-        this.messageDataSource = messageDataSource;
+    public TuyaMessageDispatcher(TuyaMessageDataSource tuyaMessageDataSource) {
+        this.tuyaMessageDataSource = tuyaMessageDataSource;
     }
 
     @Override
     @SneakyThrows
     @PostConstruct
     public void dispatch() {
-        MessageDataSource msgDataSource = getMsgDataSource();
-        final String ak = msgDataSource.getAk();
-        final String sk = msgDataSource.getSk();
-        String url = msgDataSource.getUrl();
+        final String ak = tuyaMessageDataSource.getAk();
+        final String sk = tuyaMessageDataSource.getSk();
+        String url = tuyaMessageDataSource.getUrl();
 
         PulsarClient client = PulsarClient.builder()
-            .serviceUrl(url).allowTlsInsecureConnection(true)
+            .serviceUrl(url)
             .authentication(new Authentication() {
                 private static final long serialVersionUID = -826735355004851795L;
 
@@ -84,15 +84,18 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
 
                 @Override
                 public void close() throws IOException {}
-            }).build();
+            })
+            .loadConf(tuyaMessageDataSource.clientLoadConf())
+            .build();
         Consumer consumer = client.newConsumer()
             .topic(String.format("%s/out/%s", ak, "event"))
-            .subscriptionName(String.format("%s-sub", ak)).subscriptionType(SubscriptionType.Failover)
+            .subscriptionName(String.format("%s-sub", ak))
+            .loadConf(tuyaMessageDataSource.consumerLoadConf())
             .subscribe();
         EXECUTORS.execute(worker(consumer, sk));
     }
 
-    //@Override
+    @Override
     public boolean stop() {
         switchFlag = false;
         EXECUTORS.shutdownNow();
@@ -101,7 +104,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
 
     @Override
     public MessageDataSource getMsgDataSource() {
-        return messageDataSource;
+        return tuyaMessageDataSource;
     }
 
     @SuppressWarnings("NullableProblems")
