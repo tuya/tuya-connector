@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @ConnectorScan(basePackages = "com.tuya.open.spring.boot.sample.ability.api")
-//@EnableMessaging
+@EnableMessaging
 @SpringBootApplication
 public class TuyaSpringBootStarterSampleApplication {
 
