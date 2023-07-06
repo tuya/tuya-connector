@@ -139,33 +139,33 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
                     MessageId messageId = null;
                     String tid = null;
                     try {
-                        log.info("###Consume STEP 1: receive message");
+                        log.debug("###Consume STEP 1: receive message");
                         message = consumer.receive();
                         if (Objects.isNull(message)) {
                             continue;
                         }
                         messageId = message.getMessageId();
                         tid = message.getProperty("tid");
-                        log.info("###Consume STEP 2: message received, messageId: {}, tid: {}", messageId, tid);
+                        log.debug("###Consume STEP 2: message received, messageId: {}, tid: {}", messageId, tid);
                         SourceMessage sourceMessage = JSON.parseObject(new String(message.getData()), SourceMessage.class);
                         BaseTuyaMessage msg = MessageFactory.extract(sourceMessage, sk);
-                        log.info("###Consume STEP 3: message parsed, messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
+                        log.debug("###Consume STEP 3: message parsed, messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
                         ctx.publishEvent(msg);
-                        log.info("###Consume STEP 4: publish message to spring event , messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
+                        log.debug("###Consume STEP 4: publish message to spring event , messageId: {}, tid: {}, event type: {}", messageId, tid, msg.getEventType());
                         consumerFlag = true;
                     } catch (Exception e) {
                         consumerFlag = false;
-                        log.error(String.format("Consume tuya message error, messageId: %s, tid: %s ", messageId, tid), e);
+                        log.debug(String.format("Consume tuya message error, messageId: %s, tid: %s ", messageId, tid), e);
                     } finally {
                         if (Objects.nonNull(message)) {
                             try {
-                                log.info("###Consume STEP 5: start message ack, messageId: {}, tid: {}", messageId, tid);
+                                log.debug("###Consume STEP 5: start message ack, messageId: {}, tid: {}", messageId, tid);
                                 if (consumerFlag) {
                                     consumer.acknowledge(message);
-                                    log.info("###Consume STEP 6: message ack success, messageId: {}, tid: {}", messageId, tid);
+                                    log.debug("###Consume STEP 6: message ack success, messageId: {}, tid: {}", messageId, tid);
                                 } else {
                                     consumer.negativeAcknowledge(message);
-                                    log.info("###Consume STEP 6: message ack negative, messageId: {}, tid: {}", messageId, tid);
+                                    log.debug("###Consume STEP 6: message ack negative, messageId: {}, tid: {}", messageId, tid);
                                 }
                             } catch (PulsarClientException e) {
                                 log.error(String.format("Ack tuya message error, messageId: %s, tid: %s ", messageId, tid), e);
