@@ -55,6 +55,7 @@ public interface DeviceConnector {
 ```
 
 2. Spring应用启动类添加`@ConnectorScan`扫描路径，如果需要消息订阅，可以通过`@EnableMessaging`开启。
+> 注意：由于 SDK 底层依赖了反射机制，JDK9 开始提供了模块化机制，因此启动时需要添加 `--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED` 参数，否则会报错。
 ```java
 @ConnectorScan(basePackages = "com.xxx.connectors")
 @EnableMessaging

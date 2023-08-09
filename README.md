@@ -54,6 +54,7 @@ public interface DeviceConnector {
 ```
 
 2. Set `@ConnectorScan` for the class of the Spring Boot application. You can set `@EnableMessaging` to enable the message subscription capability.
+> Note: Since the connector SDK relies on the reflection mechanism, and starting from JDK 9, a modularization mechanism has been introduced. Therefore, when starting, you need to add the parameters `--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED` to avoid potential errors.
 ```java
 @ConnectorScan(basePackages = "com.xxx.connectors")
 @EnableMessaging
