@@ -54,8 +54,10 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         map.put("client_id", ak);
         map.put("t", t);
         map.put("sign_method", "HMAC-SHA256");
-        map.put("lang", langConvertor(configuration.getApiDataSource().getLang()));
-
+        String lang = configuration.getApiDataSource().getLang();
+        if (StringUtils.hasText(lang)) {
+            map.put("lang", lang);
+        }
         String signHeaderName = flattenHeaders.getOrDefault(SING_HEADER_NAME, "");
         map.put(SING_HEADER_NAME, signHeaderName);
         String nonce = flattenHeaders.getOrDefault(NONCE_HEADER_NAME, "");
@@ -83,28 +85,6 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
             }
         });
         return newHeaders;
-    }
-
-    /**
-     * 语言转换
-     *
-     * @param originalLang 原始语言
-     * @return
-     */
-    private String langConvertor(String originalLang) {
-        if (StringUtils.isEmpty(originalLang)) {
-            return "zh";
-        }
-        String result;
-        switch (originalLang) {
-            case "en-US":
-                result = "en";
-                break;
-            default:
-                result = "zh";
-                break;
-        }
-        return result;
     }
 
     @SneakyThrows
