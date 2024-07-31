@@ -107,17 +107,18 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
         lines.add(bodyHash);
         lines.add(headerLine);
         URL url = request.getUrl();
-        String paramSortedPath = getPathAndSortParam(url);
+        String paramSortedPath = getPathAndSortParam(request);
         lines.add(paramSortedPath);
         return String.join("\n", lines);
     }
 
     @SneakyThrows
-    private String getPathAndSortParam(URL url) {
+    private String getPathAndSortParam(HttpRequest request) {
+        String originalPath = request.originalPath();
+        URL url = request.getUrl();
         String query = url.getQuery();
-        String path = url.getPath();
         if(!StringUtils.hasText(query)){
-            return decode(path);
+            return originalPath;
         }
         Map<String,String> kvMap = new TreeMap<>();
         String[] kvs = query.split("\\&");
@@ -129,7 +130,7 @@ public class TuyaHeaderProcessor implements HeaderProcessor {
                 kvMap.put(kvArr[0],"");
             }
         }
-        return decode(path) + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+ encode(it.getValue()))
+        return originalPath + "?" + kvMap.entrySet().stream().map(it->it.getKey()+"="+ encode(it.getValue()))
             .collect(Collectors.joining("&"));
     }
 

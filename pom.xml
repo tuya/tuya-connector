@@ -6,7 +6,7 @@
     <groupId>com.tuya</groupId>
     <artifactId>tuya-connector</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.0</version>
+    <version>1.4.3</version>
     <modules>
         <module>tuya-api</module>
         <module>tuya-messaging</module>
@@ -17,7 +17,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.version>1.3.6</connector.version>
+        <connector.version>1.4.2</connector.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <lombok.version>1.18.26</lombok.version>
         <logback.version>1.2.3</logback.version>
