@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tuya</groupId>
         <artifactId>tuya-connector</artifactId>
-        <version>1.4.3</version>
+        <version>1.4.5</version>
     </parent>
 
     <artifactId>tuya-messaging</artifactId>
