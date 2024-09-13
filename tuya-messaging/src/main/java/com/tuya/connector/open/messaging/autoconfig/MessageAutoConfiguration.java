@@ -1,20 +1,12 @@
 package com.tuya.connector.open.messaging.autoconfig;
 
-import com.tuya.connector.open.messaging.MessageRegister;
 import com.tuya.connector.open.messaging.TuyaMessageDispatcher;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.StringUtils;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * <p> TODO
@@ -26,7 +18,7 @@ import java.util.Set;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(MessageProperties.class)
-public class MessageAutoConfiguration implements ImportBeanDefinitionRegistrar {
+public class MessageAutoConfiguration {
 
     private final MessageProperties messageProperties;
 
@@ -60,18 +52,5 @@ public class MessageAutoConfiguration implements ImportBeanDefinitionRegistrar {
             messageProperties.getSk(),
             messageProperties.getSubNameSuffix()
         );
-    }
-
-    @Override
-    public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(EnableMessaging.class.getName()));
-        Set<String> pkgPaths = new HashSet<>();
-        if (attributes != null) {
-            String[] paths = attributes.getStringArray("msgPaths");
-            for (String path : paths) {
-                pkgPaths.add(path);
-            }
-        }
-        MessageRegister.init(pkgPaths);
     }
 }

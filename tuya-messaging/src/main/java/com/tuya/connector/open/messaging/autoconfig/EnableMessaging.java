@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(MessageAutoConfiguration.class)
+@Import({MessageScanRegister.class, MessageAutoConfiguration.class})
 public @interface EnableMessaging {
     String[] msgPaths() default {};
 }
