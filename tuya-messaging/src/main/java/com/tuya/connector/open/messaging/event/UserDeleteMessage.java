@@ -19,4 +19,8 @@ public class UserDeleteMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
+    @Override
+    public String type() {
+        return "userDelete";
+    }
 }

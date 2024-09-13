@@ -22,4 +22,8 @@ public class HomeDeleteMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
+    @Override
+    public String type() {
+        return "homeDelete";
+    }
 }

@@ -20,5 +20,8 @@ public class RoomSortMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
-
+    @Override
+    public String type() {
+        return "roomSort";
+    }
 }

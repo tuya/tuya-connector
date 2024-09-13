@@ -25,6 +25,11 @@ public class DeviceSignalMessage extends BaseTuyaMessage {
         }
     }
 
+    @Override
+    public String type() {
+        return "deviceSignal";
+    }
+
     public List<Item> getReportData() {
         return reportData;
     }

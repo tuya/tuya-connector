@@ -27,6 +27,11 @@ public class StatusReportMessage extends BaseTuyaMessage {
         }
     }
 
+    @Override
+    public String type() {
+        return "statusReport";
+    }
+
     public static class Item {
         private String code;
         private Long t;

@@ -21,4 +21,8 @@ public class ShareMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
+    @Override
+    public String type() {
+        return "share";
+    }
 }

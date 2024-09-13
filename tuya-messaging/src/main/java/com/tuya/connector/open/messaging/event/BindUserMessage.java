@@ -20,4 +20,9 @@ public class BindUserMessage extends BaseTuyaMessage {
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
     }
+
+    @Override
+    public String type() {
+        return "bindUser";
+    }
 }

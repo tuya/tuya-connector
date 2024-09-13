@@ -19,4 +19,8 @@ public class OfflineMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
+    @Override
+    public String type() {
+        return "offline";
+    }
 }

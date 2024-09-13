@@ -38,6 +38,10 @@ public class SceneExecuteMessage extends BaseTuyaMessage {
         }
     }
 
+    @Override
+    public String type() {
+        return "sceneExecute";
+    }
 
     public List<Item> getActions() {
         return actions;

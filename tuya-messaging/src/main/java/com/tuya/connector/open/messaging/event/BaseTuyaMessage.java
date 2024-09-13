@@ -28,11 +28,6 @@ public abstract class BaseTuyaMessage implements MessageEvent, Serializable {
 
     private Map<String, Object> bizData;
 
-    @Override
-    public String type() {
-        return this.bizCode;
-    }
-
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         this.sourceMessage = sourceMessage;
         if (Objects.nonNull(messageBody) && messageBody.size() > 0) {

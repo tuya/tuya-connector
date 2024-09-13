@@ -18,4 +18,9 @@ public class UserRegisterMessage extends BaseTuyaMessage {
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
     }
+
+    @Override
+    public String type() {
+        return "userRegister";
+    }
 }

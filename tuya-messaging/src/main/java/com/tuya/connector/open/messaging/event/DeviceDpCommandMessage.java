@@ -25,6 +25,11 @@ public class DeviceDpCommandMessage extends BaseTuyaMessage {
         }
     }
 
+    @Override
+    public String type() {
+        return "deviceDpCommand";
+    }
+
     public List<Item> getCommand() {
         return command;
     }

@@ -19,4 +19,8 @@ public class DpNameUpdateMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
+    @Override
+    public String type() {
+        return "dpNameUpdate";
+    }
 }

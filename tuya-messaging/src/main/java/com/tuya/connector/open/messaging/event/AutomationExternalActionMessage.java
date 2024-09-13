@@ -22,6 +22,11 @@ public class AutomationExternalActionMessage extends BaseTuyaMessage {
         this.automationId = messageBody.getString("automationId");
     }
 
+    @Override
+    public String type() {
+        return "automationExternalAction";
+    }
+
     public String getAutomationId() {
         return automationId;
     }
