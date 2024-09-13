@@ -20,9 +20,4 @@ public class BindUserMessage extends BaseTuyaMessage {
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
     }
-
-    @Override
-    public EventType getEventType() {
-        return EventType.BIND_USER;
-    }
 }

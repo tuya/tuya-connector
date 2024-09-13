@@ -1,12 +1,18 @@
 package com.tuya.connector.open.messaging.autoconfig;
 
 import com.tuya.connector.messaging.MessageDataSource;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.pulsar.client.api.SubscriptionType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TuyaMessageDataSource extends MessageDataSource {
+
+    @Getter @Setter
+    private String subNameSuffix;
+
     // pulsar client loadConf
     private Map<String, Object> clientLoadConfMap = new HashMap<>();
 
@@ -16,6 +22,11 @@ public class TuyaMessageDataSource extends MessageDataSource {
 
     public TuyaMessageDataSource(String url, String ak, String sk) {
         super(url, ak, sk);
+    }
+
+    public TuyaMessageDataSource(String url, String ak, String sk, String subNameSuffix) {
+        super(url, ak, sk);
+        this.subNameSuffix = subNameSuffix;
     }
 
     public Map<String, Object> clientLoadConf() {

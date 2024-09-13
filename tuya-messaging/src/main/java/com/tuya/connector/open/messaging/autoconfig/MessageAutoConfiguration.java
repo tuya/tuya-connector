@@ -1,9 +1,7 @@
 package com.tuya.connector.open.messaging.autoconfig;
 
-import com.tuya.connector.messaging.MessageDataSource;
 import com.tuya.connector.open.messaging.TuyaMessageDispatcher;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +37,9 @@ public class MessageAutoConfiguration {
         if (StringUtils.isEmpty(tuyaMessageDataSource.getSk())) {
             tuyaMessageDataSource.setUrl(messageProperties.getSk());
         }
+        if (StringUtils.isEmpty(tuyaMessageDataSource.getSubNameSuffix())) {
+            tuyaMessageDataSource.setUrl(messageProperties.getSubNameSuffix());
+        }
         return new TuyaMessageDispatcher(tuyaMessageDataSource);
     }
 
@@ -48,7 +49,8 @@ public class MessageAutoConfiguration {
         return new TuyaMessageDataSource(
             messageProperties.getUrl(),
             messageProperties.getAk(),
-            messageProperties.getSk()
+            messageProperties.getSk(),
+            messageProperties.getSubNameSuffix()
         );
     }
 

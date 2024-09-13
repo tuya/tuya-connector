@@ -30,6 +30,12 @@ public class MessageProperties implements EnvironmentAware {
 
     String sk;
 
+    /**
+     * pulsar 消息订阅名称后缀，订阅名称完整格式为：clientId-{subNameSuffix}
+     * 默认值为：sub
+     */
+    String subNameSuffix = "sub";
+
     @Override
     public void setEnvironment(Environment env) {
         if (StringUtils.isEmpty(ak)) {

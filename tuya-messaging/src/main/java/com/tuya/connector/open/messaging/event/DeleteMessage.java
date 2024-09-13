@@ -17,10 +17,4 @@ public class DeleteMessage extends BaseTuyaMessage {
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
         super.defaultBuild(sourceMessage, messageBody);
     }
-
-    @Override
-    public EventType getEventType() {
-        return EventType.DELETE;
-    }
-
 }

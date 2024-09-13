@@ -27,11 +27,6 @@ public class StatusReportMessage extends BaseTuyaMessage {
         }
     }
 
-    @Override
-    public EventType getEventType() {
-        return EventType.STATUS_REPORT;
-    }
-
     public static class Item {
         private String code;
         private Long t;

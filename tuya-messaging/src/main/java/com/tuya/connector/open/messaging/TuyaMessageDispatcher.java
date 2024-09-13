@@ -48,6 +48,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
         final String ak = tuyaMessageDataSource.getAk();
         final String sk = tuyaMessageDataSource.getSk();
         String url = tuyaMessageDataSource.getUrl();
+        String subNameSuffix = tuyaMessageDataSource.getSubNameSuffix();
 
         PulsarClient client = PulsarClient.builder()
             .loadConf(tuyaMessageDataSource.clientLoadConf())
@@ -89,7 +90,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
             })
             .build();
         String topic = String.format("%s/out/event", ak);
-        String subscriptionName = String.format("%s-sub", ak);
+        String subscriptionName = String.format("%s-%s", ak, subNameSuffix);
         Consumer consumer = client.newConsumer()
             .loadConf(tuyaMessageDataSource.consumerLoadConf())
             .topic(topic)

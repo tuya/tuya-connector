@@ -3,7 +3,6 @@ package com.tuya.connector.open.messaging;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tuya.connector.open.messaging.event.BaseTuyaMessage;
-import com.tuya.connector.open.messaging.event.EventType;
 import com.tuya.connector.open.messaging.event.UnknownMessage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,7 @@ import java.util.Set;
 @Slf4j
 public class MessageFactory {
 
-    private static Map<EventType, Class<? extends BaseTuyaMessage>> messageHandler = new HashMap<>();
+    private static Map<String, Class<? extends BaseTuyaMessage>> messageHandler = new HashMap<>();
 
     static {
         Reflections reflections = new Reflections("com.tuya.connector.open.messaging.event");
@@ -31,8 +30,7 @@ public class MessageFactory {
         classSet.forEach(handler -> {
             try {
                 BaseTuyaMessage baseTuyaMessage = handler.newInstance();
-                EventType eventType = baseTuyaMessage.getEventType();
-                messageHandler.put(eventType, handler);
+                messageHandler.put(baseTuyaMessage.type(), handler);
             } catch (Exception ignore) {
                 log.error("ignore {} handler.", handler.getSimpleName());
             }
@@ -54,12 +52,12 @@ public class MessageFactory {
         if (Objects.nonNull(messageBody) && messageBody.size() > 0) {
             bizCode = messageBody.getString("bizCode");
         }
-        return generate(EventType.of(sourceMessage.getProtocol(), bizCode), sourceMessage, messageBody);
+        return generate(bizCode, sourceMessage, messageBody);
     }
 
     @SneakyThrows
-    public static BaseTuyaMessage generate(EventType eventType, SourceMessage sourceMessage, JSONObject messageBody) {
-        Class<? extends BaseTuyaMessage> msgHandler = messageHandler.getOrDefault(eventType, UnknownMessage.class);
+    public static BaseTuyaMessage generate(String bizCode, SourceMessage sourceMessage, JSONObject messageBody) {
+        Class<? extends BaseTuyaMessage> msgHandler = messageHandler.getOrDefault(bizCode, UnknownMessage.class);
         BaseTuyaMessage tuyaMessage = msgHandler.newInstance();
         tuyaMessage.defaultBuild(sourceMessage, messageBody);
         return tuyaMessage;

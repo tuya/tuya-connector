@@ -22,8 +22,4 @@ public class HomeDeleteMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
-    @Override
-    public EventType getEventType() {
-        return EventType.HOME_DELETE;
-    }
 }

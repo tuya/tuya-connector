@@ -21,9 +21,4 @@ public class UpgradeStatusMessage extends BaseTuyaMessage {
         super.defaultBuild(sourceMessage, messageBody);
     }
 
-    @Override
-    public EventType getEventType() {
-        return EventType.UPGRADE_STATUS;
-    }
-
 }
