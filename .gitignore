@@ -31,3 +31,6 @@ target/
 .mvn/
 mvn*
 *.flattened-pom.xml
+
+# 忽略 sample 模块的 application.properties
+tuya-spring-boot-starter-sample/src/main/resources/application.properties
