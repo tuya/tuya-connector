@@ -11,4 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Import(MessageAutoConfiguration.class)
 public @interface EnableMessaging {
+    String[] msgPaths() default {};
 }

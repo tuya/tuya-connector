@@ -7,11 +7,15 @@ import org.apache.pulsar.client.api.SubscriptionType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TuyaMessageDataSource extends MessageDataSource {
 
     @Getter @Setter
     private String subNameSuffix;
+
+    @Getter @Setter
+    private Set<String> pkgPaths;
 
     // pulsar client loadConf
     private Map<String, Object> clientLoadConfMap = new HashMap<>();
