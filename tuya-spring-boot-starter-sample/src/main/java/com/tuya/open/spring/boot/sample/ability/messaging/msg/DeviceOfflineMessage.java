@@ -4,15 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.tuya.connector.open.messaging.SourceMessage;
 import com.tuya.connector.open.messaging.event.BaseTuyaMessage;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
-public class DeviceNameUpdate extends BaseTuyaMessage {
-
+@Getter @Setter
+public class DeviceOfflineMessage extends BaseTuyaMessage {
     private String devId;
     private String productId;
     private String uid;
-    private String name;
-    private String uuid;
+    private Long time;
 
     @Override
     public void defaultBuild(SourceMessage sourceMessage, JSONObject messageBody) {
@@ -20,12 +19,11 @@ public class DeviceNameUpdate extends BaseTuyaMessage {
         this.devId = messageBody.getJSONObject("bizData").getString("devId");
         this.productId = messageBody.getJSONObject("bizData").getString("productId");
         this.uid = messageBody.getJSONObject("bizData").getString("uid");
-        this.name = messageBody.getJSONObject("bizData").getString("name");
-        this.uuid = messageBody.getJSONObject("bizData").getString("uuid");
+        this.time = messageBody.getJSONObject("bizData").getLong("time");
     }
 
     @Override
     public String type() {
-        return "deviceNameUpdate";
+        return "deviceOffline";
     }
 }

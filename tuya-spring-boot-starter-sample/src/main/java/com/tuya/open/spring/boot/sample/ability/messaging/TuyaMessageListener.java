@@ -3,6 +3,9 @@ package com.tuya.open.spring.boot.sample.ability.messaging;
 import com.tuya.connector.open.messaging.event.NameUpdateMessage;
 import com.tuya.connector.open.messaging.event.StatusReportMessage;
 import com.tuya.open.spring.boot.sample.ability.messaging.msg.DeviceNameUpdate;
+import com.tuya.open.spring.boot.sample.ability.messaging.msg.DeviceOfflineMessage;
+import com.tuya.open.spring.boot.sample.ability.messaging.msg.DeviceOnlineMessage;
+import com.tuya.open.spring.boot.sample.ability.messaging.msg.DevicePropertyMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -17,12 +20,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TuyaMessageListener {
 
-    @EventListener
+//    @EventListener
     public void updateStatusEvent(StatusReportMessage message) {
         log.info("StatusReport event happened: {}", message);
     }
 
-    @EventListener
+//    @EventListener
     public void nameUpdateMessage(NameUpdateMessage message) {
         log.info("NameUpdate event happened: {}", message);
     }
@@ -31,5 +34,21 @@ public class TuyaMessageListener {
     public void deviceNameUpdateMsg(DeviceNameUpdate message) {
         log.info("deviceNameUpdateMsg event happened: {}", message);
     }
+
+    @EventListener
+    public void deviceOfflineMsg(DeviceOfflineMessage msg) {
+        log.warn("pulsar msg, DeviceOfflineMessage:{}", msg);
+    }
+
+    @EventListener
+    public void deviceOnlineMsg(DeviceOnlineMessage msg) {
+        log.warn("pulsar msg, DeviceOnlineMessage:{}", msg);
+    }
+
+    @EventListener
+    public void devicePropertyMsg(DevicePropertyMessage msg) {
+        log.warn("pulsar msg, DevicePropertyMessage:{}", msg);
+    }
+
 
 }
