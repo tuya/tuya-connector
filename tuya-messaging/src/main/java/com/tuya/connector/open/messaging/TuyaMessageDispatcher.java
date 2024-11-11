@@ -150,7 +150,7 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
                         consumerFlag = true;
                     } catch (Exception e) {
                         consumerFlag = false;
-                        log.debug(String.format("###TUYA_PULSAR_MSG => Consume tuya message error, msgId: %s, tid: %s ", msgId, tid), e);
+                        log.error(String.format("###TUYA_PULSAR_MSG => Consume tuya message error, msgId: %s, tid: %s ", msgId, tid), e);
                     } finally {
                         if (Objects.nonNull(message)) {
                             try {
