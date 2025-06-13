@@ -32,7 +32,12 @@ public enum TuyaRegion {
     /**
      * India
      */
-    IN("https://openapi.tuyain.com", "pulsar+ssl://mqe.tuyain.com:7285/");
+    IN("https://openapi.tuyain.com", "pulsar+ssl://mqe.tuyain.com:7285/"),
+
+    /**
+     * Singapore
+     */
+    SG("https://openapi-sg.iotbing.com", "pulsar+ssl://mqe-sg.iotbing.com:7285/");
 
     private final String apiUrl;
 
