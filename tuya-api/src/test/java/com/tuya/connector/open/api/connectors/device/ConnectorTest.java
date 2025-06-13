@@ -30,7 +30,7 @@ public class ConnectorTest {
 
     static DeviceConnector deviceConnector;
     static IndustryDeviceConnector industryDeviceConnector;
-    String DEVICE_ID = "*********";
+    String deviceId = "*********";
 
     static Configuration config;
 
@@ -62,9 +62,9 @@ public class ConnectorTest {
 
     @Test
     void getById() {
-        Device device = deviceConnector.getById(DEVICE_ID);
+        Device device = deviceConnector.getById(deviceId);
         log.error("DEVICE: {}", device);
-        Assertions.assertEquals(device.getId(), DEVICE_ID);
+        Assertions.assertEquals(device.getId(), deviceId);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ConnectorTest {
         cmdWrapper.commands.add(new Command());
         cmdWrapper.commands.get(0).code = "basic_indicator";
         cmdWrapper.commands.get(0).value = true;
-        industryDeviceConnector.sendCommands(DEVICE_ID,cmdWrapper);
+        industryDeviceConnector.sendCommands(deviceId,cmdWrapper);
     }
 
 
@@ -85,11 +85,11 @@ public class ConnectorTest {
     @Test
     void testLanguage() {
         config.getApiDataSource().setLang("zh-CN");
-        Object ret1 = deviceConnector.specification(DEVICE_ID);
+        Object ret1 = deviceConnector.specification(deviceId);
         log.info("中文语言请求结果: {}", ret1);
 
         config.getApiDataSource().setLang("en-US");
-        Object ret2 = deviceConnector.specification(DEVICE_ID);
+        Object ret2 = deviceConnector.specification(deviceId);
         log.info("English language result: {}", ret2);
     }
 

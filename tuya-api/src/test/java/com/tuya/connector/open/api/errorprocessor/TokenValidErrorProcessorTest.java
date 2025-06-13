@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class TokenValidErrorProcessorTest {
     static DeviceConnector deviceConnector;
-    String DEVICE_ID = "*********";
+    String deviceId = "*********";
 
     @BeforeAll
     static void init() {
@@ -70,9 +70,9 @@ public class TokenValidErrorProcessorTest {
      */
     @Test
     void autoRefreshToken() {
-        Device device = deviceConnector.getById(DEVICE_ID);
+        Device device = deviceConnector.getById(deviceId);
         log.error("DEVICE: {}", device);
-        Assertions.assertEquals(device.getUuid(), DEVICE_ID);
+        Assertions.assertEquals(device.getUuid(), deviceId);
     }
 
 

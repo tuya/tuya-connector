@@ -17,45 +17,43 @@ import java.util.Map;
 public class SIService {
     @Autowired
     ThingConnector thingConnector;
-
-    String DEVICE_ID = "6c8561a54bf607698f2sgw";
-
+    
     public void isDeviceExist(String deviceId) {
-        Result<DeviceDetail> result = thingConnector.getDeviceResult(DEVICE_ID);
+        Result<DeviceDetail> result = thingConnector.getDeviceResult(deviceId);
         System.out.println(JSON.toJSONString(result));
     }
 
     public void getDevice(String deviceId) {
-        DeviceDetail device = thingConnector.getDevice(DEVICE_ID);
+        DeviceDetail device = thingConnector.getDevice(deviceId);
         System.out.println(JSON.toJSONString(device));
     }
 
     public void getFirmware(String deviceId) {
-        Object ret = thingConnector.getFirmware(DEVICE_ID);
+        Object ret = thingConnector.getFirmware(deviceId);
         System.out.println(JSON.toJSONString(ret));
     }
 
     public void getExtProperties(String deviceId) {
-        List<Map<String, Object>> ret = thingConnector.getDeviceExtProperties(DEVICE_ID);
+        List<Map<String, Object>> ret = thingConnector.getDeviceExtProperties(deviceId);
         System.out.println(JSON.toJSONString(ret));
     }
 
     public void getDeviceSpecification(String deviceId) {
-        DeviceSpecification ret = thingConnector.getDeviceSpecification(DEVICE_ID);
+        DeviceSpecification ret = thingConnector.getDeviceSpecification(deviceId);
         System.out.println(JSON.toJSONString(ret));
     }
 
     public void getDeviceModel(String deviceId) {
-        System.out.println(thingConnector.getDeviceModel(DEVICE_ID));
+        System.out.println(thingConnector.getDeviceModel(deviceId));
     }
 
     public void getDeviceProperties(String deviceId) {
-        DeviceProperties ret = thingConnector.getDeviceProperties(DEVICE_ID);
+        DeviceProperties ret = thingConnector.getDeviceProperties(deviceId);
         System.out.println(JSON.toJSONString(ret));
     }
 
     public void getDeviceState(String deviceId) {
-        Map<String, Object> ret = thingConnector.getDeviceState(DEVICE_ID);
+        Map<String, Object> ret = thingConnector.getDeviceState(deviceId);
         System.out.println(JSON.toJSONString(ret));
     }
 
@@ -64,11 +62,11 @@ public class SIService {
         Map<String, Object> kv = new HashMap<>();
         kv.put("switch_led", false);
         param.put("properties", kv);
-        System.out.println(thingConnector.issueDeviceProperties(DEVICE_ID, param));
+        System.out.println(thingConnector.issueDeviceProperties(deviceId, param));
     }
 
     public void getIndustryDevice(String deviceId) {
-        System.out.println(JSON.toJSONString(thingConnector.getIndustryDevice(DEVICE_ID)));
+        System.out.println(JSON.toJSONString(thingConnector.getIndustryDevice(deviceId)));
     }
 
 }
