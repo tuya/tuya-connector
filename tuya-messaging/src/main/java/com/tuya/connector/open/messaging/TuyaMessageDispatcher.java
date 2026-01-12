@@ -142,6 +142,8 @@ public class TuyaMessageDispatcher implements MessageDispatcher, ApplicationCont
                         String payload = new String(message.getData());
                         SourceMessage sourceMessage = JSON.parseObject(payload, SourceMessage.class);
                         BaseTuyaMessage msg = MessageRegister.extract(sourceMessage, sk);
+                        // Expose Pulsar MessageId to event listeners for traceability and deduplication
+                        msg.setUuid(msgId.toString());
                         log.debug("###TUYA_PULSAR_MSG => start process message, messageId={}, publishTime={}, tid={}, payload={}",
                             msgId, publishTime, tid, payload);
                         ctx.publishEvent(msg);
